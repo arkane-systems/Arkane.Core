@@ -1,0 +1,28 @@
+﻿using ArkaneSystems.Arkane.Annotations;
+
+namespace ArkaneSystems.Arkane;
+
+/// <summary>
+///   Supports deep copying, which creates a new instance of a class whose fields reference new copies of the original
+///   object's fields.
+/// </summary>
+/// <typeparam name="T">The type of the deep-copyable object.</typeparam>
+/// <remarks>
+///   <para>
+///     DO NOT implement this on the same class as <see cref="IShallowCopy{T}" />.
+///   </para>
+///   <para>
+///     <see cref="ICloneable.Clone()" /> must be implemented to call the <see cref="IDeepCopy{T}.DeepCopy()" />
+///     method.
+///   </para>
+/// </remarks>
+[PublicAPI]
+public interface IDeepCopy<out T> : ICloneable
+{
+  /// <summary>
+  ///   Creates a deep copy of an object, a new instance of the class whose fields reference new copies of the original
+  ///   object's fields.
+  /// </summary>
+  /// <returns>A deep copy of the object.</returns>
+  T DeepCopy ();
+}

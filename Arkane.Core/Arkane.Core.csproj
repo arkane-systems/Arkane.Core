@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>ArkaneSystems.Arkane</RootNamespace>
+    <AssemblyTitle>Arkane.Core</AssemblyTitle>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>\\arkane-systems.lan\Folders\home\arkane.snk</AssemblyOriginatorKeyFile>
+    <Title>Arkane.Core</Title>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Description>Arkane Systems base class library - core
+
+Please see project web site for more information.
+</Description>
+    <Product>Arkane BCL</Product>
+    <Company>Arkane Systems</Company>
+    <PackageProjectUrl>https://www.arkane-systems.net/bcl/</PackageProjectUrl>
+    <Copyright>Copyright © Arkane Systems 2012-2026</Copyright>
+    <RepositoryType>git</RepositoryType>
+    <Authors>Alistair J. R. Young</Authors>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
+    <FileVersion>$(VersionPrefix)</FileVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>embedded</DebugType>
+    <IsTrimmable>False</IsTrimmable>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <IsPublishable>False</IsPublishable>
+    <VersionSuffix>dev</VersionSuffix>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>embedded</DebugType>
+    <IsTrimmable>False</IsTrimmable>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <IsPublishable>False</IsPublishable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Metalama.Framework" Version="2026.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
