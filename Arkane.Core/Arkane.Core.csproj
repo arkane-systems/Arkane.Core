@@ -71,7 +71,7 @@ Please see project web site for more information.
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Annotations\" />
+    <Folder Include="Aspects\" />
   </ItemGroup>
 
 </Project>
