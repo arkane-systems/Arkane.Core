@@ -35,6 +35,7 @@ Please see project web site for more information.
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <IsPublishable>False</IsPublishable>
     <VersionSuffix>dev</VersionSuffix>
+    <DefineConstants>$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -42,10 +43,16 @@ Please see project web site for more information.
     <IsTrimmable>False</IsTrimmable>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <IsPublishable>False</IsPublishable>
+    <DefineConstants>$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LamaDebug|AnyCPU'">
+    <DefineConstants>$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Metalama.Framework" Version="2026.0.16" />
+    <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
+    <PackageReference Include="Metalama.Framework" Version="2026.0.20" />
   </ItemGroup>
 
   <ItemGroup>
@@ -61,6 +68,10 @@ Please see project web site for more information.
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Annotations\" />
   </ItemGroup>
 
 </Project>
