@@ -1,4 +1,21 @@
-﻿using ArkaneSystems.Arkane.Annotations;
+﻿#region header
+
+// Arkane.Core - IDeepCopy.cs
+// 
+// Alistair J. R. Young
+// Arkane Systems
+// 
+// Copyright Arkane Systems 2012-2018.  All rights reserved.
+// 
+// Created: 2026-02-12 4:01 PM
+
+#endregion
+
+#region using
+
+using JetBrains.Annotations;
+
+#endregion
 
 namespace ArkaneSystems.Arkane;
 

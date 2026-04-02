@@ -1,7 +1,26 @@
-﻿using System.Runtime.InteropServices;
+﻿#region header
 
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
+// Arkane.Core - GlobalAttributes.cs
+// 
+// Alistair J. R. Young
+// Arkane Systems
+// 
+// Copyright Arkane Systems 2012-2018.  All rights reserved.
+// 
+// Created: 2026-02-12 3:19 PM
+
+#endregion
+
+#region using
+
+using System.Runtime.InteropServices;
+
+using JetBrains.Annotations;
+
+#endregion
+
+// Setting ComVisible to false makes the types in this assembly not visible
+// to COM components.  If you need to access a type in this assembly from
 // COM, set the ComVisible attribute to true on that type.
 
 [assembly: ComVisible (false)]
