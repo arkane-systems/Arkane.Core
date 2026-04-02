@@ -31,7 +31,7 @@ namespace ArkaneSystems.Arkane;
 public interface IFluent
 {
   [EditorBrowsable (EditorBrowsableState.Never)]
-  bool Equals (object obj);
+  bool Equals (object? obj);
 
   [EditorBrowsable (EditorBrowsableState.Never)]
   int GetHashCode ();
