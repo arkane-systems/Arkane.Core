@@ -71,6 +71,18 @@
 - Strong-named assembly: signing key from `\\arkane-systems.lan\Folders\home\arkane.snk`
 - Debug and Release configurations both apply strict rules
 
+### Versioning
+- **Version Source:** `<VersionPrefix>0.1.0</VersionPrefix>` in `.csproj` (semantic versioning)
+- **Development Suffix:** Debug builds append `-dev` to version via `<VersionSuffix>dev</VersionSuffix>`
+- **Package Generation:** Enabled with `<GeneratePackageOnBuild>True</GeneratePackageOnBuild>` – produces NuGet package on each build
+- Release builds use clean version (no suffix) for public distribution
+
+### External Dependencies
+- **JetBrains.Annotations:** Required dependency for `PublicAPI`, `UsedImplicitly`, and `MeansImplicitUse` attributes
+  - Critical for IDE tooling (ReSharper, Visual Studio) and API documentation
+  - Included in package as a dependency
+  - Define `JETBRAINS_ANNOTATIONS` conditional in both Debug/Release configurations
+
 ### Testing
 - Run `dotnet test` to execute MSTest suite in `Arkane.Core.UnitTests`
 - Each test class targets a single public type or concern
