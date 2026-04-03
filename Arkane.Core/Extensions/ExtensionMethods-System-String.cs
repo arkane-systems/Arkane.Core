@@ -33,6 +33,19 @@ public static partial class ExtensionMethods
 
   extension (string @this)
   {
+    /// <summary>
+    ///   Returns at most <paramref name="maxLength" /> characters of the string, appending
+    ///   <paramref name="suffixToUseWhenTooLong" /> when the string is truncated.
+    /// </summary>
+    /// <param name="maxLength">The maximum number of characters to return before the suffix.</param>
+    /// <param name="suffixToUseWhenTooLong">
+    ///   The suffix appended when the string exceeds <paramref name="maxLength" /> characters.
+    ///   Defaults to <c>"..."</c>.
+    /// </param>
+    /// <returns>
+    ///   The original string if it is no longer than <paramref name="maxLength" /> characters; otherwise the
+    ///   first <paramref name="maxLength" /> characters followed by <paramref name="suffixToUseWhenTooLong" />.
+    /// </returns>
     [PublicAPI]
     public string UpTo (int maxLength, string suffixToUseWhenTooLong = "...")
     {
@@ -44,10 +57,14 @@ public static partial class ExtensionMethods
                : @this;
     }
 
+    /// <summary>
+    ///   Returns a new string containing only the alphanumeric characters (<c>[A-Za-z0-9]</c>) from the original string.
+    /// </summary>
+    /// <returns>A string consisting solely of the alphanumeric characters found in the original string.</returns>
     [PublicAPI]
     public string RemoveNonAlphanumeric ()
     {
-      MatchCollection matchCollection = AlphanumericRegex ().Matches (input: @this);
+      MatchCollection matchCollection = ExtensionMethods.AlphanumericRegex ().Matches (input: @this);
       string          result          = string.Concat (matchCollection.Select (static m => m.Value));
 
       return result;

@@ -19,10 +19,16 @@ using JetBrains.Annotations;
 
 namespace ArkaneSystems.Arkane;
 
+/// <summary>
+///   A base class that provides a default shallow-copy implementation via <see cref="IShallowCopy{T}" />
+///   and <see cref="ICloneable" />.
+/// </summary>
 [PublicAPI]
 public class ShallowCopiableObject : IShallowCopy<ShallowCopiableObject>
 {
+  /// <inheritdoc />
   public ShallowCopiableObject ShallowCopy () => (ShallowCopiableObject)this.MemberwiseClone ();
 
+  /// <inheritdoc />
   public object Clone () => this.ShallowCopy ();
 }

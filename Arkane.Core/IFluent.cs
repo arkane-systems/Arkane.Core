@@ -30,15 +30,19 @@ namespace ArkaneSystems.Arkane;
 [PublicAPI]
 public interface IFluent
 {
+  /// <inheritdoc cref="object.Equals(object?)" />
   [EditorBrowsable (EditorBrowsableState.Never)]
   bool Equals (object? obj);
 
+  /// <inheritdoc cref="object.GetHashCode()" />
   [EditorBrowsable (EditorBrowsableState.Never)]
   int GetHashCode ();
 
+  /// <inheritdoc cref="object.ToString()" />
   [EditorBrowsable (EditorBrowsableState.Never)]
   string ToString ();
 
+  /// <inheritdoc cref="object.GetType()" />
   [EditorBrowsable (EditorBrowsableState.Never)]
   Type GetType ();
 }

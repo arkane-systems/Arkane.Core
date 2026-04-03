@@ -22,6 +22,12 @@ using JetBrains.Annotations;
 
 namespace ArkaneSystems.Arkane;
 
+/// <summary>
+///   A base class that provides a recursive, reflection-based deep-copy implementation via
+///   <see cref="IDeepCopy{T}" /> and <see cref="ICloneable" />.
+///   Known immutable types (primitives, strings, <see cref="DateTime" />, <see cref="Guid" />, etc.) are
+///   not cloned; object-graph cycles are handled by tracking already-copied references.
+/// </summary>
 [PublicAPI]
 [Serializable]
 public class DeepCopiableObject : IDeepCopy<DeepCopiableObject>
@@ -33,11 +39,13 @@ public class DeepCopiableObject : IDeepCopy<DeepCopiableObject>
   private static readonly MethodInfo MemberwiseCloneMethod =
     typeof (object).GetMethod (name: "MemberwiseClone", bindingAttr: BindingFlags.Instance | BindingFlags.NonPublic)!;
 
+  /// <inheritdoc />
   public virtual DeepCopiableObject DeepCopy ()
     => (DeepCopiableObject)DeepCopiableObject.DeepClone (source: this,
                                                          copiedReferences: new Dictionary<object, object> (ReferenceEqualityComparer
                                                                                                             .Instance));
 
+  /// <inheritdoc />
   public object Clone () => this.DeepCopy ();
 
   private static object DeepClone (object source, IDictionary<object, object> copiedReferences)

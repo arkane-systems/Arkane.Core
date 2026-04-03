@@ -19,8 +19,16 @@ using JetBrains.Annotations;
 
 namespace ArkaneSystems.Arkane;
 
+/// <summary>
+///   A generic <see cref="EventArgs" /> subclass that carries a strongly-typed event payload.
+/// </summary>
+/// <typeparam name="T">The type of the value carried by this event.</typeparam>
+/// <param name="value">The value to associate with the event.</param>
 [PublicAPI]
 public class EventArgs<T> (T value) : EventArgs
 {
+  /// <summary>
+  ///   The value associated with the event.
+  /// </summary>
   public T Value { get; } = value;
 }

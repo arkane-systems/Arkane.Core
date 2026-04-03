@@ -31,6 +31,14 @@ public static partial class ExtensionMethods
 
   extension (Type @this)
   {
+    /// <summary>
+    ///   Determines whether this type derives from — or is itself — the specified open generic type.
+    /// </summary>
+    /// <param name="genericType">The open generic type definition to test against (e.g., <c>typeof(List&lt;&gt;)</c>).</param>
+    /// <returns>
+    ///   <see langword="true" /> if this type is, or inherits from, a closed construction of
+    ///   <paramref name="genericType" />; otherwise <see langword="false" />.
+    /// </returns>
     [PublicAPI]
     public bool IsDerivedFromGenericType (Type genericType)
     {
