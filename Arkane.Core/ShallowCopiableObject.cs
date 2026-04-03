@@ -20,7 +20,7 @@ using JetBrains.Annotations;
 namespace ArkaneSystems.Arkane;
 
 [PublicAPI]
-public class ShallowCopiableObject : IShallowCopy<ShallowCopiableObject>, ICloneable
+public class ShallowCopiableObject : IShallowCopy<ShallowCopiableObject>
 {
   public ShallowCopiableObject ShallowCopy () => (ShallowCopiableObject)this.MemberwiseClone ();
 
