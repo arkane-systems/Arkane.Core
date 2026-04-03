@@ -53,6 +53,7 @@ Please see project web site for more information.
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
     <PackageReference Include="Metalama.Framework" Version="2026.0.20" />
+    <PackageReference Include="Metalama.Patterns.Contracts" Version="2026.0.20" />
   </ItemGroup>
 
   <ItemGroup>

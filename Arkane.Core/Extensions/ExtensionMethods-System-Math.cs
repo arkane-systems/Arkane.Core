@@ -50,6 +50,8 @@ public static partial class ExtensionMethods
 
     #region Greek-lettered constants
 
+    #pragma warning disable IDE1006
+
     // ReSharper disable once InconsistentNaming
     [PublicAPI]
     public static double π => Math.PI;
@@ -57,6 +59,8 @@ public static partial class ExtensionMethods
     // ReSharper disable once InconsistentNaming
     [PublicAPI]
     public static double τ => Math.Tau;
+
+    #pragma warning restore IDE1006
 
     #endregion
   }
