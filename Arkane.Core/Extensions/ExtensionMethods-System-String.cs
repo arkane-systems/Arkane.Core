@@ -34,6 +34,19 @@ public static partial class ExtensionMethods
   extension (string @this)
   {
     /// <summary>
+    ///   Returns a new string containing only the alphanumeric characters (<c>[A-Za-z0-9]</c>) from the original string.
+    /// </summary>
+    /// <returns>A string consisting solely of the alphanumeric characters found in the original string.</returns>
+    [PublicAPI]
+    public string RemoveNonAlphanumeric ()
+    {
+      MatchCollection matchCollection = AlphanumericRegex ().Matches (input: @this);
+      string          result          = string.Concat (matchCollection.Select (static m => m.Value));
+
+      return result;
+    }
+
+    /// <summary>
     ///   Returns at most <paramref name="maxLength" /> characters of the string, appending
     ///   <paramref name="suffixToUseWhenTooLong" /> when the string is truncated.
     /// </summary>
@@ -57,18 +70,60 @@ public static partial class ExtensionMethods
                : @this;
     }
 
-    /// <summary>
-    ///   Returns a new string containing only the alphanumeric characters (<c>[A-Za-z0-9]</c>) from the original string.
-    /// </summary>
-    /// <returns>A string consisting solely of the alphanumeric characters found in the original string.</returns>
-    [PublicAPI]
-    public string RemoveNonAlphanumeric ()
-    {
-      MatchCollection matchCollection = ExtensionMethods.AlphanumericRegex ().Matches (input: @this);
-      string          result          = string.Concat (matchCollection.Select (static m => m.Value));
+    #region FillWith
 
-      return result;
-    }
+    /// <summary>
+    ///   Formats the string using one replacement value.
+    /// </summary>
+    /// <param name="arg0">The value to substitute for format item <c>{0}</c>.</param>
+    /// <returns>The formatted string.</returns>
+    [PublicAPI]
+    [StringFormatMethod ("@this")]
+    public string FillWith (object? arg0) => string.Format (format: @this, arg0: arg0);
+
+    /// <summary>
+    ///   Formats the string using two replacement values.
+    /// </summary>
+    /// <param name="arg0">The value to substitute for format item <c>{0}</c>.</param>
+    /// <param name="arg1">The value to substitute for format item <c>{1}</c>.</param>
+    /// <returns>The formatted string.</returns>
+    [PublicAPI]
+    [StringFormatMethod ("@this")]
+    public string FillWith (object? arg0, object? arg1) => string.Format (format: @this, arg0: arg0, arg1: arg1);
+
+    /// <summary>
+    ///   Formats the string using three replacement values.
+    /// </summary>
+    /// <param name="arg0">The value to substitute for format item <c>{0}</c>.</param>
+    /// <param name="arg1">The value to substitute for format item <c>{1}</c>.</param>
+    /// <param name="arg2">The value to substitute for format item <c>{2}</c>.</param>
+    /// <returns>The formatted string.</returns>
+    [PublicAPI]
+    [StringFormatMethod ("@this")]
+    public string FillWith (object? arg0, object? arg1, object? arg2)
+      => string.Format (format: @this, arg0: arg0, arg1: arg1, arg2: arg2);
+
+    /// <summary>
+    ///   Formats the string by substituting each format item with a corresponding value from <paramref name="args" />.
+    /// </summary>
+    /// <param name="args">The values to substitute into the format items in the string.</param>
+    /// <returns>The formatted string.</returns>
+    [PublicAPI]
+    [StringFormatMethod ("@this")]
+    public string FillWith (params object?[] args) => string.Format (format: @this, args: args);
+
+    /// <summary>
+    ///   Formats the string using the specified culture-specific formatting provider and replacement values.
+    /// </summary>
+    /// <param name="provider">An object that supplies culture-specific formatting information.</param>
+    /// <param name="args">The values to substitute into the format items in the string.</param>
+    /// <returns>The formatted string.</returns>
+    [PublicAPI]
+    [StringFormatMethod ("@this")]
+    public string FillWith (IFormatProvider provider, params object?[] args)
+      => string.Format (provider: provider, format: @this, args: args);
+
+    #endregion
   }
 
   #endregion
