@@ -5,7 +5,7 @@
 // Alistair J. R. Young
 // Arkane Systems
 // 
-// Copyright Arkane Systems 2012-2018.  All rights reserved.
+// Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
 // Created: 2026-04-02 11:22 PM
 
@@ -28,13 +28,15 @@ namespace ArkaneSystems.Arkane;
 [PublicAPI]
 public abstract class DisposerBase<T> (T o) : IDisposable
 {
+  private readonly Lock disposeSyncRoot = new ();
+
   /// <summary>
   ///   Indicates whether the object has been disposed.
   /// </summary>
   /// <remarks>
   ///   This field is typically used by derived classes to track the disposal state and prevent
-  ///   operations on a disposed object. Access to this field should be protected by appropriate synchronization if the
-  ///   object is accessed from multiple threads.
+  ///   operations on a disposed object. Access within the base disposal path is synchronized to ensure that the
+  ///   transition to the disposed state is atomic when accessed from multiple threads.
   /// </remarks>
   protected bool IsDisposed;
 
@@ -79,7 +81,9 @@ public abstract class DisposerBase<T> (T o) : IDisposable
   /// <exception cref="ObjectDisposedException">Thrown if the object has already been disposed.</exception>
   protected void Dispose (bool disposing)
   {
-    this.IsDisposed = !this.IsDisposed ? true : throw new ObjectDisposedException (this.GetType ().FullName);
+    lock (this.disposeSyncRoot)
+      this.IsDisposed = !this.IsDisposed ? true : throw new ObjectDisposedException (this.GetType ().FullName);
+
     this.DisposeImplementation (disposing);
   }
 
