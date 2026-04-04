@@ -137,7 +137,7 @@
     <value>Must be a parameterless method.</value>
   </data>
   <data name="DisposerByReflection_GetPublicParameterlessInstanceMethod_ObjectDoesNotHaveAPublicParameterInstanceMethod" xml:space="preserve">
-    <value>Object does not have a public parameter instance method {0}.</value>
+    <value>Object does not have a public parameterless instance method {0}.</value>
   </data>
   <data name="DivisibleByAttribute_Validate_ValueMustBeDivisibleBy" xml:space="preserve">
     <value>Value must be divisible by {0}, but was {1}.</value>

@@ -48,7 +48,9 @@ public static partial class ExtensionMethods
     [PublicAPI]
     public string? GetStringProperty (string propertyName, string? defaultValue = null)
     {
-      if (!@this.IsNull () && @this.TryGetProperty (propertyName: propertyName, value: out JsonElement element))
+      if (@this.ValueKind == JsonValueKind.Object &&
+          @this.TryGetProperty (propertyName: propertyName, value: out JsonElement element) &&
+          element.ValueKind == JsonValueKind.String)
         return element.GetString () ?? defaultValue;
 
       return defaultValue;

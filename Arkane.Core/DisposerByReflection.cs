@@ -14,6 +14,7 @@
 #region using
 
 using System.Reflection;
+using System.Runtime.ExceptionServices;
 
 using ArkaneSystems.Arkane.Properties;
 
@@ -117,7 +118,10 @@ public class DisposerByReflection<T> : DisposerBase<T>
       return;
 
     try { this.Method.Invoke (obj: this.Object, parameters: null); }
-    catch (TargetInvocationException ex) { throw ex.InnerException!; }
+    catch (TargetInvocationException ex)
+    {
+      ExceptionDispatchInfo.Capture (ex.InnerException!).Throw ();
+    }
   }
 
   #endregion

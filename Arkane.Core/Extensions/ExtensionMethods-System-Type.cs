@@ -42,11 +42,11 @@ public static partial class ExtensionMethods
     [PublicAPI]
     public bool IsDerivedFromGenericType (Type genericType)
     {
-      if (@this == typeof (object))
+      if (@this == typeof (object) || @this.BaseType is null)
         return false;
 
       return (@this.IsGenericType && (@this.GetGenericTypeDefinition () == genericType)) ||
-             @this.BaseType!.IsDerivedFromGenericType (genericType);
+             @this.BaseType.IsDerivedFromGenericType (genericType);
     }
   }
 

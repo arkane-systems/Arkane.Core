@@ -52,7 +52,7 @@ public class AuthorAttributeTests
   }
 
   [TestMethod]
-  public void Equals_WhenComparingDifferentInstancesWithEquivalentEmail_ReturnsFalse ()
+  public void Equals_WhenComparingDifferentInstancesWithEquivalentEmail_ReturnsTrue ()
   {
     // Arrange
     var left  = new AuthorAttribute (name: "Jane Doe",   emailAddress: "jane@example.com");
@@ -61,8 +61,8 @@ public class AuthorAttributeTests
     // Act
     bool result = left.Equals (obj: right);
 
-    // Assert
-    Assert.IsFalse (condition: result);
+    // Assert - email is the unique identity, compared case-insensitively
+    Assert.IsTrue (condition: result);
   }
 
   [TestMethod]
@@ -76,9 +76,9 @@ public class AuthorAttributeTests
     bool areEqual    = left == right;
     bool areNotEqual = left != right;
 
-    // Assert
-    Assert.IsFalse (condition: areEqual);
-    Assert.IsTrue (condition: areNotEqual);
+    // Assert - email is the unique identity, compared case-insensitively
+    Assert.IsTrue (condition: areEqual);
+    Assert.IsFalse (condition: areNotEqual);
   }
 
   [TestMethod]

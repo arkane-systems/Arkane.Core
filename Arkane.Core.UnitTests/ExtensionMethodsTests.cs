@@ -92,6 +92,19 @@ public class ExtensionMethodsTests
   }
 
   [TestMethod]
+  public void IsDerivedFromGenericType_WhenTypeIsInterface_ReturnsFalse ()
+  {
+    // Arrange
+    Type type = typeof (IDisposable);
+
+    // Act
+    bool result = type.IsDerivedFromGenericType (genericType: typeof (GenericBase<>));
+
+    // Assert
+    Assert.IsFalse (condition: result);
+  }
+
+  [TestMethod]
   public void IsDerivedFromGenericType_WhenTypeDoesNotDeriveFromGenericBase_ReturnsFalse ()
   {
     // Arrange
