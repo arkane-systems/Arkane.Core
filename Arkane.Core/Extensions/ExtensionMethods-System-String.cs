@@ -13,6 +13,7 @@
 
 #region using
 
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -71,6 +72,21 @@ public static partial class ExtensionMethods
                ? string.Concat (str0: @this.AsSpan (start: 0, length: maxLength), str1: suffixToUseWhenTooLong)
                : @this;
     }
+
+    #region Conversions
+
+    [PublicAPI]
+    public DateTime AsDateTime (DateTime defaultValue = default)
+      => string.IsNullOrWhiteSpace (@this) ||
+         !DateTime.TryParseExact (s: @this,
+                                  formats: DateFormats,
+                                  provider: CultureInfo.InvariantCulture,
+                                  style: DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal,
+                                  result: out DateTime result)
+           ? defaultValue
+           : result;
+
+    #endregion
 
     #region Encryption
 
@@ -233,10 +249,18 @@ public static partial class ExtensionMethods
 
   #endregion
 
-  #region Supporting regexes for string extension methods
+  #region Supporting data for string extension methods
 
+  // The date formats supported by AsDateTime. These are tried in order until one matches the input string.
+  private static readonly string[] DateFormats =
+  [
+    "ddd MMM dd HH:mm:ss %zzzz yyyy", "yyyy-MM-dd\\THH:mm:ss.000Z", "yyyy-MM-dd\\THH:mm:ss\\Z", "yyyy-MM-dd HH:mm:ss",
+    "yyyy-MM-dd HH:mm",
+  ];
+
+  // Matches sequences of one or more alphanumeric characters (letters and digits). Used by RemoveNonAlphanumeric.
   [GeneratedRegex ("[A-Za-z0-9]+")]
   private static partial Regex AlphanumericRegex ();
 
-  #endregion Supporting regexes for string extension methods
+  #endregion
 }
