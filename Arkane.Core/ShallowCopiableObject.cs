@@ -5,7 +5,7 @@
 // Alistair J. R. Young
 // Arkane Systems
 // 
-// Copyright Arkane Systems 2012-2018.  All rights reserved.
+// Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
 // Created: 2026-04-02 6:17 PM
 
@@ -28,7 +28,4 @@ public class ShallowCopiableObject : IShallowCopy<ShallowCopiableObject>
 {
   /// <inheritdoc />
   public ShallowCopiableObject ShallowCopy () => (ShallowCopiableObject)this.MemberwiseClone ();
-
-  /// <inheritdoc />
-  public object Clone () => this.ShallowCopy ();
 }

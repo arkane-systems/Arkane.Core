@@ -5,7 +5,7 @@
 // Alistair J. R. Young
 // Arkane Systems
 // 
-// Copyright Arkane Systems 2012-2018.  All rights reserved.
+// Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
 // Created: 2026-02-12 4:01 PM
 
@@ -36,6 +36,13 @@ namespace ArkaneSystems.Arkane;
 [PublicAPI]
 public interface IDeepCopy<out T> : ICloneable
 {
+  #region Implementation of ICloneable
+
+  /// <inheritdoc />
+  object ICloneable.Clone () => this.DeepCopy () ?? throw new NullReferenceException ();
+
+  #endregion
+
   /// <summary>
   ///   Creates a deep copy of an object, a new instance of the class whose fields reference new copies of the original
   ///   object's fields.

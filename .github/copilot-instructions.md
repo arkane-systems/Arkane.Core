@@ -10,41 +10,27 @@
 - **Assembly Signing:** Uses strong-named assembly key (`arkane.snk`)
 - **Strict Build:** `<TreatWarningsAsErrors>True</TreatWarningsAsErrors>` in both Debug and Release
 
-## Architecture & Key Components
+## Architectural Principles
 
-### Copy Interfaces Pattern
-- **`IDeepCopy<T>`** and **`IShallowCopy<T>`** define copy semantics
-  - **Critical Rule:** Never implement both on the same class
-  - Each must implement `ICloneable` with `Clone()` calling the respective copy method
-  - See `Arkane.Core/IDeepCopy.cs` and `Arkane.Core/IShallowCopy.cs` for contract specs
-  - Base implementations: `DeepCopiableObject` and `ShallowCopiableObject`
+### Annotations and Metadata
 
-### RandomProvider (Thread-Safe Singleton)
-- **Design:** Per-thread `ThreadLocal<Random>` to avoid repeated values from synchronized seeding
-- **Usage:** `RandomProvider.GetInstance()` returns thread-local instance
-- **Key:** No locking required; safe on multiple threads
-- See `Arkane.Core/RandomProvider.cs`
+- **JetBrains.Annotations** attributes should be used generously for tooling support and annotations.
+	- Particularly important here is the use of `[PublicAPI]` to mark public API surface.
+	- Since nullability is enabled, attributes like `[NotNull]`, `[CanBeNull]`, and `[MaybeNull]` should be used to clarify nullability contracts where necessary.
+	- Since these attributes are critical for documentation and tooling, the `JETBRAINS_ANNOTATIONS` conditional should be defined in both Debug and Release configurations to ensure they are included in the build.
+- Annotation attributes found in `Arkane.Core/Annotations/` should also be used when appropriate.
 
-### Disposal Patterns
-- **`DisposerBase<T>`** wraps objects lacking `IDisposable`, managing their lifecycle
-- **`IDisposable<out T>`** extends `System.IDisposable` with a covariant `Value` property
-- Proper finalizer + disposal state tracking via `IsDisposed` field
-- See `Arkane.Core/DisposerBase.cs` and `Arkane.Core/IDisposable.cs`
+### Metalama Usage
 
-### Extension Methods
-- Organized by namespace using **partial classes** (`ExtensionMethods-System-String.cs`, etc.)
-- Use `#pragma warning disable IDE0130` to allow static extension method classes outside their namespace
-- See `Arkane.Core/Extensions/`
+- Metalama is available for code generation and aspect-oriented programming. It should be used where appropriate.
+	 - This specifically includes the use of `Metalama.Patterns.Contracts` aspects to enforce interface contracts, preconditions, postconditions, and invariants.
+	 - Metalama aspects can also be used to generate boilerplate code, such as property change notifications or equality members, or for any other appropriate use case.
+	 - Metalama aspects defined in `Arkane.Core/Aspects/` should be used consistently across the project to ensure maintainability and readability.
 
-### Annotations & Markers
-- **`PublicAPIAttribute`:** Marks public API surface for documentation and tooling
-- **`UsedImplicitlyAttribute`** / **`MeansImplicitUseAttribute`:** From JetBrains.Annotations for ReSharper
-- **`AuthorAttribute`** / **`SourceLanguageAttribute`:** Metadata on assembly
-- See `Arkane.Core/GlobalAttributes.cs` and `Arkane.Core/Annotations/`
-
-## File Structure & Conventions
+## Conventions
 
 ### Naming & Organization
+
 - **Namespace:** `ArkaneSystems.Arkane` (configured in `.csproj` as `<RootNamespace>`)
 - **File headers:** Every file includes a standard header block with author, copyright, and creation date (in `#region header`)
 - **Using statements:** Organized in `#region using` before namespace declaration
@@ -54,8 +40,14 @@
 - **Nullable reference types enabled** – always provide explicit null checks; prefer `ArgumentNullException.ThrowIfNull(x)`
 - **Implicit usings enabled** – no need for common `System.*` usings
 - **Fluent API marker:** `IFluent` interface signals fluent-style methods
-- **XML documentation:** All public types and methods require `///` comments
+- **XML documentation:** All public and protected types and methods require `///` comments. Other types and methods should have them where necessary or useful for clarity.
 - **Implicit keyword use:** Use `private` by default, escalate visibility only when needed
+
+### Extension Methods for System Types
+
+- Organized by namespace using partial classes (ExtensionMethods-System-String.cs, etc.)
+- Use #pragma warning disable IDE0130 to allow static extension method classes outside their namespace
+- See Arkane.Core/Extensions/
 
 ### Test Organization
 - **Framework:** MSTest (`[TestClass]`, `[TestMethod]`)
@@ -78,10 +70,13 @@
 - Release builds use clean version (no suffix) for public distribution
 
 ### External Dependencies
-- **JetBrains.Annotations:** Required dependency for `PublicAPI`, `UsedImplicitly`, and `MeansImplicitUse` attributes
+- **JetBrains.Annotations:** Required dependency for annotation attributes
   - Critical for IDE tooling (ReSharper, Visual Studio) and API documentation
   - Included in package as a dependency
   - Define `JETBRAINS_ANNOTATIONS` conditional in both Debug/Release configurations
+- **Metalama:** Dependency for code generation and AOP
+  - Use where appropriate for contract enforcement and boilerplate reduction
+  - Aspects should be defined in `Arkane.Core/Aspects/` and used consistently
 
 ### Testing
 - Run `dotnet test` to execute MSTest suite in `Arkane.Core.UnitTests`
@@ -91,7 +86,7 @@
 ### Documentation
 - Maintain Markdown docs in `docs/` directory
 - Use separate agent role: `docs_agent` (see `.github/agents/docs.agent.md`)
-- Keep docs in sync with code changes
+- Keep docs in sync with code changes, and especially XML comments.
 
 ## Patterns & Practices
 
@@ -101,18 +96,13 @@
 3. Create corresponding unit tests before or immediately after
 4. Update README.md if adding a new functional area
 
-### When Implementing Copy Semantics
-- Choose **exactly one**: `IDeepCopy<T>` or `IShallowCopy<T>`
-- Implement `ICloneable.Clone()` to delegate to the copy method
-- Document the copy semantics clearly in remarks
-
 ### When Adding Extension Methods
 1. Create or add to the appropriate `ExtensionMethods-System-<Type>.cs` file
 2. Use `public static partial class ExtensionMethods`
 3. Include the `#pragma warning disable IDE0130` directive
 4. Add XML documentation explaining the extension's purpose and usage
 
-### No Generic Advice
+### Generic Advice
 - Do not use catch blocks without rethrowing or logging
 - Do not suppress compiler warnings except where documented (like IDE0130)
 - Do not leave code without unit tests if adding public API
@@ -137,3 +127,27 @@
 - 🚫 **Don't:** Violate the "no both copy interfaces" rule
 - 🚫 **Don't:** Add public APIs without `[PublicAPI]` attribute
 - 🚫 **Don't:** Leave warnings in a clean build
+
+## Specific Components
+
+### Copy Interfaces Pattern
+- **`IDeepCopy<T>`** and **`IShallowCopy<T>`** define copy semantics
+  - **Critical Rule:** Never implement both on the same class
+  - See `Arkane.Core/IDeepCopy.cs` and `Arkane.Core/IShallowCopy.cs` for contract specs
+  - Base implementations: `DeepCopiableObject` and `ShallowCopiableObject`
+
+#### When Implementing Copy Semantics
+- Choose **exactly one**: `IDeepCopy<T>` or `IShallowCopy<T>`
+- Document the copy semantics clearly in remarks
+
+### RandomProvider (Thread-Safe Singleton)
+- **Design:** Per-thread `ThreadLocal<Random>` to avoid repeated values from synchronized seeding
+- **Usage:** `RandomProvider.GetInstance()` returns thread-local instance
+- **Key:** No locking required; safe on multiple threads
+- See `Arkane.Core/RandomProvider.cs`
+
+### Disposal Patterns
+- **`DisposerBase<T>`** wraps objects lacking `IDisposable`, managing their lifecycle
+- **`IDisposable<out T>`** extends `System.IDisposable` with a covariant `Value` property
+- Proper finalizer + disposal state tracking via `IsDisposed` field
+- See `Arkane.Core/DisposerBase.cs` and `Arkane.Core/IDisposable.cs`

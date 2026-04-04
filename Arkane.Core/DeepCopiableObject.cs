@@ -5,7 +5,7 @@
 // Alistair J. R. Young
 // Arkane Systems
 // 
-// Copyright Arkane Systems 2012-2018.  All rights reserved.
+// Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
 // Created: 2026-04-02 6:19 PM
 
@@ -41,40 +41,37 @@ public class DeepCopiableObject : IDeepCopy<DeepCopiableObject>
 
   /// <inheritdoc />
   public virtual DeepCopiableObject DeepCopy ()
-    => (DeepCopiableObject)DeepCopiableObject.DeepClone (source: this,
-                                                         copiedReferences: new Dictionary<object, object> (ReferenceEqualityComparer
-                                                                                                            .Instance));
-
-  /// <inheritdoc />
-  public object Clone () => this.DeepCopy ();
+    => (DeepCopiableObject)DeepClone (source: this,
+                                      copiedReferences: new Dictionary<object, object> (ReferenceEqualityComparer
+                                                                                         .Instance));
 
   private static object DeepClone (object source, IDictionary<object, object> copiedReferences)
   {
     Type sourceType = source.GetType ();
 
-    if (DeepCopiableObject.IsKnownImmutable (sourceType))
+    if (IsKnownImmutable (sourceType))
       return source;
 
     if (copiedReferences.TryGetValue (key: source, value: out object? existingCopy))
       return existingCopy;
 
     if (source is Array array)
-      return DeepCopiableObject.CloneArray (source: array, copiedReferences: copiedReferences);
+      return CloneArray (source: array, copiedReferences: copiedReferences);
 
-    object clone = DeepCopiableObject.MemberwiseCloneMethod.Invoke (obj: source, parameters: null)!;
+    object clone = MemberwiseCloneMethod.Invoke (obj: source, parameters: null)!;
     copiedReferences.Add (key: source, value: clone);
 
-    foreach (FieldInfo field in DeepCopiableObject.GetCloneableFields (sourceType))
+    foreach (FieldInfo field in GetCloneableFields (sourceType))
     {
       object? fieldValue = field.GetValue (obj: source);
 
       if (fieldValue is null)
         continue;
 
-      if (DeepCopiableObject.IsKnownImmutable (field.FieldType))
+      if (IsKnownImmutable (field.FieldType))
         continue;
 
-      object clonedFieldValue = DeepCopiableObject.DeepClone (source: fieldValue, copiedReferences: copiedReferences);
+      object clonedFieldValue = DeepClone (source: fieldValue, copiedReferences: copiedReferences);
       field.SetValue (obj: clone, value: clonedFieldValue);
     }
 
@@ -88,15 +85,15 @@ public class DeepCopiableObject : IDeepCopy<DeepCopiableObject>
 
     Type? elementType = source.GetType ().GetElementType ();
 
-    if (elementType is null || DeepCopiableObject.IsKnownImmutable (elementType))
+    if (elementType is null || IsKnownImmutable (elementType))
       return clone;
 
     var indices = new int[source.Rank];
-    DeepCopiableObject.CopyArrayElements (source: source,
-                                          clone: clone,
-                                          dimension: 0,
-                                          indices: indices,
-                                          copiedReferences: copiedReferences);
+    CopyArrayElements (source: source,
+                       clone: clone,
+                       dimension: 0,
+                       indices: indices,
+                       copiedReferences: copiedReferences);
 
     return clone;
   }
@@ -116,11 +113,11 @@ public class DeepCopiableObject : IDeepCopy<DeepCopiableObject>
 
       if (dimension < source.Rank - 1)
       {
-        DeepCopiableObject.CopyArrayElements (source: source,
-                                              clone: clone,
-                                              dimension: dimension + 1,
-                                              indices: indices,
-                                              copiedReferences: copiedReferences);
+        CopyArrayElements (source: source,
+                           clone: clone,
+                           dimension: dimension + 1,
+                           indices: indices,
+                           copiedReferences: copiedReferences);
 
         continue;
       }
@@ -130,57 +127,57 @@ public class DeepCopiableObject : IDeepCopy<DeepCopiableObject>
       if (value is null)
         continue;
 
-      if (DeepCopiableObject.IsKnownImmutable (value.GetType ()))
+      if (IsKnownImmutable (value.GetType ()))
         continue;
 
-      clone.SetValue (value: DeepCopiableObject.DeepClone (source: value, copiedReferences: copiedReferences), indices: indices);
+      clone.SetValue (value: DeepClone (source: value, copiedReferences: copiedReferences), indices: indices);
     }
   }
 
   private static FieldInfo[] GetCloneableFields (Type type)
   {
-    return DeepCopiableObject.CloneableFieldsCache.GetOrAdd (key: type,
-                                                             valueFactory: static currentType =>
-                                                                           {
-                                                                             const BindingFlags bindingFlags =
-                                                                               BindingFlags.Instance  |
-                                                                               BindingFlags.Public    |
-                                                                               BindingFlags.NonPublic |
-                                                                               BindingFlags.DeclaredOnly;
-                                                                             var   fields        = new List<FieldInfo> ();
-                                                                             Type? typeToInspect = currentType;
+    return CloneableFieldsCache.GetOrAdd (key: type,
+                                          valueFactory: static currentType =>
+                                                        {
+                                                          const BindingFlags bindingFlags =
+                                                            BindingFlags.Instance  |
+                                                            BindingFlags.Public    |
+                                                            BindingFlags.NonPublic |
+                                                            BindingFlags.DeclaredOnly;
+                                                          var   fields        = new List<FieldInfo> ();
+                                                          Type? typeToInspect = currentType;
 
-                                                                             while (typeToInspect is not null)
-                                                                             {
-                                                                               fields.AddRange (collection: typeToInspect
-                                                                                                           .GetFields (bindingAttr:
-                                                                                                                       bindingFlags)
-                                                                                                           .Where (predicate:
-                                                                                                                   static field
-                                                                                                                     => !field
-                                                                                                                         .IsStatic));
-                                                                               typeToInspect = typeToInspect.BaseType;
-                                                                             }
+                                                          while (typeToInspect is not null)
+                                                          {
+                                                            fields.AddRange (collection: typeToInspect
+                                                                                        .GetFields (bindingAttr:
+                                                                                                    bindingFlags)
+                                                                                        .Where (predicate:
+                                                                                                static field
+                                                                                                  => !field
+                                                                                                      .IsStatic));
+                                                            typeToInspect = typeToInspect.BaseType;
+                                                          }
 
-                                                                             return [.. fields];
-                                                                           });
+                                                          return [.. fields];
+                                                        });
   }
 
   private static bool IsKnownImmutable (Type type)
   {
-    return DeepCopiableObject.ImmutableTypesCache.GetOrAdd (key: type,
-                                                            valueFactory: static currentType
-                                                                            => currentType.IsPrimitive                         ||
-                                                                               currentType.IsEnum                              ||
-                                                                               (currentType == typeof (string))                ||
-                                                                               (currentType == typeof (decimal))               ||
-                                                                               (currentType == typeof (DateTime))              ||
-                                                                               (currentType == typeof (DateTimeOffset))        ||
-                                                                               (currentType == typeof (TimeSpan))              ||
-                                                                               (currentType == typeof (Guid))                  ||
-                                                                               (currentType == typeof (Uri))                   ||
-                                                                               (currentType == typeof (Version))               ||
-                                                                               typeof (Type).IsAssignableFrom (c: currentType) ||
-                                                                               typeof (Delegate).IsAssignableFrom (c: currentType));
+    return ImmutableTypesCache.GetOrAdd (key: type,
+                                         valueFactory: static currentType
+                                                         => currentType.IsPrimitive                         ||
+                                                            currentType.IsEnum                              ||
+                                                            (currentType == typeof (string))                ||
+                                                            (currentType == typeof (decimal))               ||
+                                                            (currentType == typeof (DateTime))              ||
+                                                            (currentType == typeof (DateTimeOffset))        ||
+                                                            (currentType == typeof (TimeSpan))              ||
+                                                            (currentType == typeof (Guid))                  ||
+                                                            (currentType == typeof (Uri))                   ||
+                                                            (currentType == typeof (Version))               ||
+                                                            typeof (Type).IsAssignableFrom (c: currentType) ||
+                                                            typeof (Delegate).IsAssignableFrom (c: currentType));
   }
 }
