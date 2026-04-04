@@ -117,6 +117,15 @@ namespace ArkaneSystems.Arkane.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Value must be divisible by {0}, but was {1}..
+        /// </summary>
+        internal static string DivisibleByAttribute_Validate_ValueMustBeDivisibleBy {
+            get {
+                return ResourceManager.GetString("DivisibleByAttribute_Validate_ValueMustBeDivisibleBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This functionality must be implemented by a subclass of this base class..
         /// </summary>
         internal static string SubclassResponsibilityException_SubclassResponsibilityException_DefaultMessage {

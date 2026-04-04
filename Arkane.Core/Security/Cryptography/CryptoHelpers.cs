@@ -15,6 +15,8 @@
 
 using System.Security.Cryptography;
 
+using ArkaneSystems.Arkane.Aspects;
+
 using JetBrains.Annotations;
 
 using Metalama.Patterns.Contracts;
@@ -27,7 +29,7 @@ namespace ArkaneSystems.Arkane.Security.Cryptography;
 public static class CryptoHelpers
 {
   [PublicAPI]
-  public static byte[] GenerateKey ([NonNegative] [GreaterThanOrEqual (8)] int bits)
+  public static byte[] GenerateKey ([NonNegative] [GreaterThanOrEqual (8)] [DivisibleBy (8)] int bits)
   {
     int keyLength = bits / 8; // convert bits to bytes
 
