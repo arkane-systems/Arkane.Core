@@ -57,6 +57,7 @@ Please see project web site for more information.
     <PackageReference Include="Metalama.Patterns.Immutability" Version="2026.0.20" />
     <PackageReference Include="Metalama.Patterns.Memoization" Version="2026.0.20" />
     <PackageReference Include="Metalama.Patterns.Observability" Version="2026.0.20" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
   </ItemGroup>
 
   <ItemGroup>
