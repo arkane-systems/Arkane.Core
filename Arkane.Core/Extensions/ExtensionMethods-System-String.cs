@@ -13,6 +13,8 @@
 
 #region using
 
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 
 using JetBrains.Annotations;
@@ -69,6 +71,82 @@ public static partial class ExtensionMethods
                ? string.Concat (str0: @this.AsSpan (start: 0, length: maxLength), str1: suffixToUseWhenTooLong)
                : @this;
     }
+
+    #region Hashing
+
+    [PublicAPI]
+    public byte[] GenerateMd5Hash ()
+    {
+      byte[] stringBytes = Encoding.UTF8.GetBytes (@this);
+
+      using var hash = MD5.Create ();
+
+      return hash.ComputeHash (stringBytes);
+    }
+
+    /// <summary>
+    ///   Computes an MD5 hash for the current string after prefixing it with the specified <paramref name="salt" />.
+    /// </summary>
+    /// <param name="salt">The salt bytes to prepend to the UTF-8 bytes of the current string before hashing.</param>
+    /// <returns>The 16-byte MD5 hash of the salted string.</returns>
+    /// <remarks>
+    ///   <p>
+    ///     This method is suitable for compatibility scenarios. For stronger cryptographic resistance, prefer
+    ///     <see cref="GenerateSha256Hash(string,byte[])" />.
+    ///   </p>
+    ///   <p>Do not use this function to hash passwords; use a dedicated password hashing algorithm instead.</p>
+    /// </remarks>
+    [PublicAPI]
+    public byte[] GenerateMd5Hash (byte[] salt)
+    {
+      byte[] stringBytes = Encoding.UTF8.GetBytes (@this);
+
+      var saltedString = new byte[stringBytes.Length + salt.Length];
+      Buffer.BlockCopy (src: salt,        srcOffset: 0, dst: saltedString, dstOffset: 0,           count: salt.Length);
+      Buffer.BlockCopy (src: stringBytes, srcOffset: 0, dst: saltedString, dstOffset: salt.Length, count: stringBytes.Length);
+
+      using var hash = MD5.Create ();
+
+      return hash.ComputeHash (saltedString);
+    }
+
+    [PublicAPI]
+    public byte[] GenerateSha256Hash ()
+    {
+      byte[] stringBytes = Encoding.UTF8.GetBytes (@this);
+
+      using var hash = SHA256.Create ();
+
+      return hash.ComputeHash (stringBytes);
+    }
+
+    /// <summary>
+    ///   Computes a SHA-256 hash for the current string after prefixing it with the specified <paramref name="salt" />.
+    /// </summary>
+    /// <param name="salt">The salt bytes to prepend to the UTF-8 bytes of the current string before hashing.</param>
+    /// <returns>The 32-byte SHA-256 hash of the salted string.</returns>
+    /// <remarks>
+    ///   <p>
+    ///     The hash input is constructed as <c>salt + UTF8(string)</c>, ensuring deterministic salted hashing for the same
+    ///     string/salt pair.
+    ///   </p>
+    ///   <p>Do not use this function to hash passwords; use a dedicated password hashing algorithm instead.</p>
+    /// </remarks>
+    [PublicAPI]
+    public byte[] GenerateSha256Hash (byte[] salt)
+    {
+      byte[] stringBytes = Encoding.UTF8.GetBytes (@this);
+
+      var saltedString = new byte[stringBytes.Length + salt.Length];
+      Buffer.BlockCopy (src: salt,        srcOffset: 0, dst: saltedString, dstOffset: 0,           count: salt.Length);
+      Buffer.BlockCopy (src: stringBytes, srcOffset: 0, dst: saltedString, dstOffset: salt.Length, count: stringBytes.Length);
+
+      using var hash = SHA256.Create ();
+
+      return hash.ComputeHash (saltedString);
+    }
+
+    #endregion
 
     #region FillWith
 
