@@ -15,6 +15,8 @@
 
 using System.Runtime.InteropServices;
 
+using ArkaneSystems.Arkane.Annotations;
+
 using JetBrains.Annotations;
 
 #endregion
@@ -31,3 +33,7 @@ using JetBrains.Annotations;
 
 // CLS compliance.
 [assembly: CLSCompliant (true)]
+
+// Annotations (from self).
+[assembly: Author (name: "Alistair Young", emailAddress: "avatar@arkane-systems.net")]
+[assembly: SourceLanguage (RewrittenByAspects = true)]

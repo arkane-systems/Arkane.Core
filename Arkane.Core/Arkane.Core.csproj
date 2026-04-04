@@ -53,6 +53,11 @@ Please see project web site for more information.
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
     <PackageReference Include="Metalama.Framework" Version="2026.0.20" />
+    <PackageReference Include="Metalama.Patterns.Contracts" Version="2026.0.20" />
+    <PackageReference Include="Metalama.Patterns.Immutability" Version="2026.0.20" />
+    <PackageReference Include="Metalama.Patterns.Memoization" Version="2026.0.20" />
+    <PackageReference Include="Metalama.Patterns.Observability" Version="2026.0.20" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,7 +76,7 @@ Please see project web site for more information.
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Annotations\" />
+    <Folder Include="Aspects\Weavers\" />
   </ItemGroup>
 
 </Project>

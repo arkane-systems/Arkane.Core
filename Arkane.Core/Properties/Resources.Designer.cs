@@ -68,5 +68,70 @@ namespace ArkaneSystems.Arkane.Properties {
                 return ResourceManager.GetString("CompanyName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copyright ⓒ 2016-2026 Arkane Systems / Alistair J. R. Young.
+        /// </summary>
+        internal static string Copyright {
+            get {
+                return ResourceManager.GetString("Copyright", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t be a method with unassigned generic type parameters..
+        /// </summary>
+        internal static string DisposerByReflection_DisposerByReflection_CantBeMethodWithUnassignedGenericTypeParams {
+            get {
+                return ResourceManager.GetString("DisposerByReflection_DisposerByReflection_CantBeMethodWithUnassignedGenericTypePa" +
+                        "rams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t be a static method..
+        /// </summary>
+        internal static string DisposerByReflection_DisposerByReflection_CantBeStaticMethod {
+            get {
+                return ResourceManager.GetString("DisposerByReflection_DisposerByReflection_CantBeStaticMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must be a parameterless method..
+        /// </summary>
+        internal static string DisposerByReflection_DisposerByReflection_MustBeParameterlessMethod {
+            get {
+                return ResourceManager.GetString("DisposerByReflection_DisposerByReflection_MustBeParameterlessMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Object does not have a public parameter instance method {0}..
+        /// </summary>
+        internal static string DisposerByReflection_GetPublicParameterlessInstanceMethod_ObjectDoesNotHaveAPublicParameterInstanceMethod {
+            get {
+                return ResourceManager.GetString("DisposerByReflection_GetPublicParameterlessInstanceMethod_ObjectDoesNotHaveAPubli" +
+                        "cParameterInstanceMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value must be divisible by {0}, but was {1}..
+        /// </summary>
+        internal static string DivisibleByAttribute_Validate_ValueMustBeDivisibleBy {
+            get {
+                return ResourceManager.GetString("DivisibleByAttribute_Validate_ValueMustBeDivisibleBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This functionality must be implemented by a subclass of this base class..
+        /// </summary>
+        internal static string SubclassResponsibilityException_SubclassResponsibilityException_DefaultMessage {
+            get {
+                return ResourceManager.GetString("SubclassResponsibilityException_SubclassResponsibilityException_DefaultMessage", resourceCulture);
+            }
+        }
     }
 }
