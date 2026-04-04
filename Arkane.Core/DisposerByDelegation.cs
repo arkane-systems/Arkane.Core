@@ -38,7 +38,7 @@ public class DisposerByDelegation<T> (T obj, Action<T> disposeAction) : Disposer
   ///   the type parameter T. The exact behavior depends on the implementation provided when initializing this
   ///   field.
   /// </remarks>
-  protected readonly Action<T> DisposeAction = disposeAction;
+  protected readonly Action<T> DisposeAction = disposeAction ?? throw new ArgumentNullException (nameof (disposeAction));
 
   #region Overrides of DisposerBase<T>
 
