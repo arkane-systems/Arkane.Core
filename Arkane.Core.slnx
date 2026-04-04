@@ -8,4 +8,5 @@
   </Folder>
   <Project Path="Arkane.Core.UnitTests/Arkane.Core.UnitTests.csproj" Id="40c353cb-c21f-425a-91a5-dc78dcbeedce" />
   <Project Path="Arkane.Core/Arkane.Core.csproj" />
+  <Project Path="Scratchpad/Scratchpad.csproj" Id="eb440eed-0e3d-42d0-9a7e-05a936ee17a0" />
 </Solution>

@@ -43,7 +43,7 @@ public static partial class ExtensionMethods
     [PublicAPI]
     public string RemoveNonAlphanumeric ()
     {
-      MatchCollection matchCollection = AlphanumericRegex ().Matches (input: @this);
+      MatchCollection matchCollection = ExtensionMethods.AlphanumericRegex ().Matches (input: @this);
       string          result          = string.Concat (matchCollection.Select (static m => m.Value));
 
       return result;
@@ -79,7 +79,7 @@ public static partial class ExtensionMethods
     public DateTime AsDateTime (DateTime defaultValue = default)
       => string.IsNullOrWhiteSpace (@this) ||
          !DateTime.TryParseExact (s: @this,
-                                  formats: DateFormats,
+                                  formats: ExtensionMethods.DateFormats,
                                   provider: CultureInfo.InvariantCulture,
                                   style: DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal,
                                   result: out DateTime result)
