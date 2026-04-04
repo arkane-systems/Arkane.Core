@@ -49,17 +49,22 @@ public static partial class ExtensionMethods
 
       using var aes = Aes.Create ();
 
-      var iv = new byte[aes.IV.Length];
+      int ivLength = aes.IV.Length;
+      if (@this.Length < ivLength)
+      {
+        throw new ArgumentException ("The encrypted payload is shorter than the AES IV.", nameof (@this));
+      }
+
+      var iv = new byte[ivLength];
       memStream.ReadExactly (buffer: iv, offset: 0, count: iv.Length);
 
       using var cryptoStream = new CryptoStream (stream: memStream,
                                                  transform: aes.CreateDecryptor (rgbKey: key, rgbIV: iv),
                                                  mode: CryptoStreamMode.Read);
-      int plainTextLength = @this.Length - iv.Length;
-      var plainTextBytes  = new byte[plainTextLength];
-      cryptoStream.ReadExactly (buffer: plainTextBytes, offset: 0, count: plainTextLength);
+      using var plainTextStream = new MemoryStream ();
+      cryptoStream.CopyTo (plainTextStream);
 
-      return Encoding.UTF8.GetString (plainTextBytes);
+      return Encoding.UTF8.GetString (plainTextStream.ToArray ());
     }
 
     #endregion
