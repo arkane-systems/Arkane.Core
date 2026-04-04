@@ -69,20 +69,11 @@ public sealed class AuthorAttribute ([Required] string name, [Required] [Email] 
     if (ReferenceEquals (objA: this, objB: other))
       return true;
 
-    return base.Equals (other) &&
-           string.Equals (a: this.EmailAddress, b: other.EmailAddress, comparisonType: StringComparison.OrdinalIgnoreCase);
+    return string.Equals (a: this.EmailAddress, b: other.EmailAddress, comparisonType: StringComparison.OrdinalIgnoreCase);
   }
 
   /// <inheritdoc />
-  public override int GetHashCode ()
-  {
-    var hashCode = new HashCode ();
-    hashCode.Add (base.GetHashCode ());
-    hashCode.Add (value: this.EmailAddress, comparer: StringComparer.OrdinalIgnoreCase);
-
-    return hashCode.ToHashCode ();
-  }
-
+  public override int GetHashCode () => StringComparer.OrdinalIgnoreCase.GetHashCode (this.EmailAddress);
   /// <summary>Determines whether two <see cref="AuthorAttribute" /> instances are equal.</summary>
   /// <param name="left">The left-hand operand.</param>
   /// <param name="right">The right-hand operand.</param>
