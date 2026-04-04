@@ -72,6 +72,33 @@ public static partial class ExtensionMethods
                : @this;
     }
 
+    #region Encryption
+
+    // Paired with DecryptWithAes in ExtensionMethods-System-ByteArray.cs. The IV is prepended to the
+    // output of this method, so the decryption method can extract it for use in decryption.
+    [PublicAPI]
+    public byte[] EncryptWithAes (byte[] key)
+    {
+      using var aes = Aes.Create ();
+      aes.Key = key;
+
+      using var memStream = new MemoryStream ();
+      memStream.Write (buffer: aes.IV, offset: 0, count: aes.IV.Length); // Prepend IV to the output
+
+      using var cryptoStream =
+        new CryptoStream (stream: memStream, transform: aes.CreateEncryptor (), mode: CryptoStreamMode.Write);
+
+      byte[] stringBytes = Encoding.UTF8.GetBytes (@this);
+      cryptoStream.Write (buffer: stringBytes, offset: 0, count: stringBytes.Length);
+      cryptoStream.FlushFinalBlock ();
+
+      memStream.Position = 0;
+
+      return memStream.ToArray ();
+    }
+
+    #endregion
+
     #region Hashing
 
     [PublicAPI]
