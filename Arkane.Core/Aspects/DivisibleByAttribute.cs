@@ -103,9 +103,7 @@ public class DivisibleByAttribute : ContractAspect
   public override void Validate (dynamic? value)
   {
     if (value % this.Divisor != 0)
-      throw new ArgumentException (message: string.Format (AspectResources.DivisibleByAttribute_Validate_ValueMustBeDivisibleBy,
-                                                           this.Divisor,
-                                                           value),
+      throw new ArgumentException (message: $"Value must be divisible by {this.Divisor}, but was {value}.",
                                    paramName: nameof (value));
   }
 

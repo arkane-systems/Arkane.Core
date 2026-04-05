@@ -30,16 +30,12 @@ namespace ArkaneSystems.Arkane.Aspects;
 public sealed class NoOpAttribute : OverrideMethodAspect
 {
   /// <summary>
-  ///   Replaces the target method's body with a no-op implementation that returns the default value for the
+  ///   Replaces the target method's body with a no-op implementation that returns <see langword="default" /> for the
   ///   method's return type.
   /// </summary>
   /// <returns>
-  ///   The default value for the method's return type, or <see langword="null" /> for reference types.
+  ///   <see langword="default" /> for the target method's return type: <see langword="null" /> for reference types,
+  ///   <c>0</c> for numeric value types, <see langword="false" /> for <see cref="bool" />, and so on.
   /// </returns>
-  public override dynamic? OverrideMethod ()
-  {
-    object? returnValue = meta.Target.Method.ReturnType.ToType ().GetDefault ();
-
-    return returnValue;
-  }
+  public override dynamic? OverrideMethod () => default;
 }
