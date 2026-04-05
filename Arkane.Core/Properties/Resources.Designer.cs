@@ -107,21 +107,12 @@ namespace ArkaneSystems.Arkane.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Object does not have a public parameter instance method {0}..
+        ///   Looks up a localized string similar to Object does not have a public parameterless instance method {0}..
         /// </summary>
         internal static string DisposerByReflection_GetPublicParameterlessInstanceMethod_ObjectDoesNotHaveAPublicParameterInstanceMethod {
             get {
                 return ResourceManager.GetString("DisposerByReflection_GetPublicParameterlessInstanceMethod_ObjectDoesNotHaveAPubli" +
                         "cParameterInstanceMethod", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Value must be divisible by {0}, but was {1}..
-        /// </summary>
-        internal static string DivisibleByAttribute_Validate_ValueMustBeDivisibleBy {
-            get {
-                return ResourceManager.GetString("DivisibleByAttribute_Validate_ValueMustBeDivisibleBy", resourceCulture);
             }
         }
         
