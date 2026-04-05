@@ -117,26 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CompanyName" xml:space="preserve">
-    <value>Arkane Systems</value>
-    <comment>Generic resource for company name.</comment>
-  </data>
-  <data name="SubclassResponsibilityException_SubclassResponsibilityException_DefaultMessage" xml:space="preserve">
-    <value>This functionality must be implemented by a subclass of this base class.</value>
-  </data>
-  <data name="Copyright" xml:space="preserve">
-    <value>Copyright ⓒ 2016-2026 Arkane Systems / Alistair J. R. Young</value>
-  </data>
-  <data name="DisposerByReflection_DisposerByReflection_CantBeMethodWithUnassignedGenericTypeParams" xml:space="preserve">
-    <value>Can't be a method with unassigned generic type parameters.</value>
-  </data>
-  <data name="DisposerByReflection_DisposerByReflection_CantBeStaticMethod" xml:space="preserve">
-    <value>Can't be a static method.</value>
-  </data>
-  <data name="DisposerByReflection_DisposerByReflection_MustBeParameterlessMethod" xml:space="preserve">
-    <value>Must be a parameterless method.</value>
-  </data>
-  <data name="DisposerByReflection_GetPublicParameterlessInstanceMethod_ObjectDoesNotHaveAPublicParameterInstanceMethod" xml:space="preserve">
-    <value>Object does not have a public parameterless instance method {0}.</value>
+  <data name="DivisibleByAttribute_Validate_ValueMustBeDivisibleBy" xml:space="preserve">
+    <value>Value must be divisible by {0}, but was {1}.</value>
   </data>
 </root>

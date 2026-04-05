@@ -13,8 +13,6 @@
 
 #region using
 
-using ArkaneSystems.Arkane.Properties;
-
 using JetBrains.Annotations;
 
 using Metalama.Framework.Aspects;
@@ -101,7 +99,7 @@ public class DivisibleByAttribute : ContractAspect
   public override void Validate (dynamic? value)
   {
     if (value % this.Divisor != 0)
-      throw new ArgumentException (message: string.Format (Resources.DivisibleByAttribute_Validate_ValueMustBeDivisibleBy,
+      throw new ArgumentException (message: string.Format (AspectResources.DivisibleByAttribute_Validate_ValueMustBeDivisibleBy,
                                                            this.Divisor,
                                                            value),
                                    paramName: nameof (value));
