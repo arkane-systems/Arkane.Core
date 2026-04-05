@@ -37,13 +37,24 @@ public static partial class ExtensionMethods
   extension (string @this)
   {
     /// <summary>
+    ///   Perform a disemvowelment on a string, removing all lowercase and uppercase vowels ('a', 'e', 'i', 'o', 'u', 'A', 'E',
+    ///   'I', 'O', 'U') from the original string.
+    /// </summary>
+    /// <returns>
+    ///   A new string with all lowercase and uppercase vowels ('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U') removed
+    ///   from the original string.
+    /// </returns>
+    [PublicAPI]
+    public string Disemvowel () => @this.Remove ('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
+
+    /// <summary>
     ///   Returns a new string containing only the alphanumeric characters (<c>[A-Za-z0-9]</c>) from the original string.
     /// </summary>
     /// <returns>A string consisting solely of the alphanumeric characters found in the original string.</returns>
     [PublicAPI]
     public string RemoveNonAlphanumeric ()
     {
-      MatchCollection matchCollection = ExtensionMethods.AlphanumericRegex ().Matches (input: @this);
+      MatchCollection matchCollection = AlphanumericRegex ().Matches (input: @this);
       string          result          = string.Concat (matchCollection.Select (static m => m.Value));
 
       return result;
@@ -73,21 +84,6 @@ public static partial class ExtensionMethods
                : @this;
     }
 
-    #region Conversions
-
-    [PublicAPI]
-    public DateTime AsDateTime (DateTime defaultValue = default)
-      => string.IsNullOrWhiteSpace (@this) ||
-         !DateTime.TryParseExact (s: @this,
-                                  formats: ExtensionMethods.DateFormats,
-                                  provider: CultureInfo.InvariantCulture,
-                                  style: DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal,
-                                  result: out DateTime result)
-           ? defaultValue
-           : result;
-
-    #endregion
-
     #region Encryption
 
     // Paired with DecryptWithAes in ExtensionMethods-System-ByteArray.cs. The IV is prepended to the
@@ -112,6 +108,70 @@ public static partial class ExtensionMethods
 
       return memStream.ToArray ();
     }
+
+    #endregion
+
+    #region Remove
+
+    /// <summary>
+    ///   Remove any instances of the given character(s) from the string.
+    /// </summary>
+    /// <param name="toRemove">The character(s) to remove.</param>
+    /// <returns>The string with the specified characters removed.</returns>
+    [PublicAPI]
+    public string Remove ([Metalama.Patterns.Contracts.NotNull] params char[] toRemove)
+    {
+      string result = @this;
+      foreach (char c in toRemove)
+        result = result.Replace (oldValue: c.ToString (), newValue: string.Empty);
+
+      return result;
+    }
+
+    /// <summary>
+    ///   Remove any instance of the given string from the string.
+    /// </summary>
+    /// <param name="toRemove">The string(s) to remove.</param>
+    /// <returns>The string with the specified substrings removed.</returns>
+    [PublicAPI]
+    public string Remove ([Metalama.Patterns.Contracts.NotNull] params string[] toRemove)
+    {
+      string result = @this;
+      foreach (string s in toRemove)
+        result = result.Replace (oldValue: s, newValue: string.Empty);
+
+      return result;
+    }
+
+    #endregion
+
+    #region Conversions
+
+    [PublicAPI]
+    public DateTime AsDateTime (DateTime defaultValue = default)
+      => string.IsNullOrWhiteSpace (@this) ||
+         !DateTime.TryParseExact (s: @this,
+                                  formats: DateFormats,
+                                  provider: CultureInfo.InvariantCulture,
+                                  style: DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal,
+                                  result: out DateTime result)
+           ? defaultValue
+           : result;
+
+    /// <summary>
+    ///   Parses a string into an enum. The parsing is case-insensitive by default, and returns
+    ///   <paramref name="defaultValue" /> if the string is null, empty, or cannot be parsed into the enum type.
+    /// </summary>
+    /// <typeparam name="T">The type of the enum.</typeparam>
+    /// <param name="ignoreCase">Indicates whether to ignore case when parsing.</param>
+    /// <param name="defaultValue">The default value to return if parsing fails.</param>
+    /// <returns>The parsed enum value, or the default value if parsing fails.</returns>
+    [PublicAPI]
+    public T AsEnum<T> (bool ignoreCase = true, T defaultValue = default) where T : struct, Enum
+      => string.IsNullOrWhiteSpace (@this) ||
+         !Enum.TryParse (value: @this, ignoreCase: ignoreCase, result: out T result)
+           ? defaultValue
+           : result;
 
     #endregion
 
