@@ -35,6 +35,19 @@ public static partial class ExtensionMethods
   {
     #region Conversions
 
+    /// <summary>
+    ///   Retrieves the string value of a named property from the JSON element and parses it as a
+    ///   <see cref="DateTime" />. Returns <paramref name="defaultValue" /> if the property is missing or
+    ///   cannot be parsed.
+    /// </summary>
+    /// <param name="propertyName">The name of the JSON property to retrieve and parse.</param>
+    /// <param name="defaultValue">
+    ///   The value to return when the property is absent or cannot be parsed as a <see cref="DateTime" />.
+    ///   Defaults to <see cref="DateTime.MinValue" />.
+    /// </param>
+    /// <returns>
+    ///   The parsed <see cref="DateTime" /> value, or <paramref name="defaultValue" /> if parsing fails.
+    /// </returns>
     [PublicAPI]
     public DateTime AsDateTime (string propertyName, DateTime defaultValue = default)
     {
@@ -45,6 +58,16 @@ public static partial class ExtensionMethods
 
     #endregion
 
+    /// <summary>
+    ///   Retrieves the string value of a named property from the JSON element, returning
+    ///   <paramref name="defaultValue" /> if the element is not an object, the property does not exist,
+    ///   or the property value is not a string.
+    /// </summary>
+    /// <param name="propertyName">The name of the JSON property to retrieve.</param>
+    /// <param name="defaultValue">
+    ///   The value to return when the property is missing or not a string. Defaults to <see langword="null" />.
+    /// </param>
+    /// <returns>The string value of the property, or <paramref name="defaultValue" /> if unavailable.</returns>
     [PublicAPI]
     public string? GetStringProperty (string propertyName, string? defaultValue = null)
     {
@@ -56,6 +79,15 @@ public static partial class ExtensionMethods
       return defaultValue;
     }
 
+    /// <summary>
+    ///   Determines whether the JSON element has a <see cref="JsonValueKind.Null" /> or
+    ///   <see cref="JsonValueKind.Undefined" /> value kind.
+    /// </summary>
+    /// <returns>
+    ///   <see langword="true" /> if the element's <see cref="JsonElement.ValueKind" /> is
+    ///   <see cref="JsonValueKind.Null" /> or <see cref="JsonValueKind.Undefined" />; otherwise
+    ///   <see langword="false" />.
+    /// </returns>
     [PublicAPI]
     public bool IsNull () => @this.ValueKind is JsonValueKind.Null or JsonValueKind.Undefined;
   }

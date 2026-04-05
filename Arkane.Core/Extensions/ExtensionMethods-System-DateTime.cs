@@ -31,6 +31,13 @@ public static partial class ExtensionMethods
 
   extension (DateTime @this)
   {
+    /// <summary>
+    ///   Converts the current <see cref="DateTime" /> to a Unix/Linux timestamp expressed as milliseconds
+    ///   since the Linux epoch (1 January 1970).
+    /// </summary>
+    /// <returns>
+    ///   The number of milliseconds elapsed since the Linux epoch, rounded to the nearest whole millisecond.
+    /// </returns>
     [PublicAPI]
     public double ToLinuxTimeStamp ()
     {
@@ -43,6 +50,11 @@ public static partial class ExtensionMethods
 
   extension (DateTime)
   {
+    /// <summary>
+    ///   Converts a Unix/Linux timestamp (milliseconds since the Linux epoch) to a <see cref="DateTime" />.
+    /// </summary>
+    /// <param name="timestamp">The number of milliseconds elapsed since the Linux epoch (1 January 1970).</param>
+    /// <returns>A <see cref="DateTime" /> corresponding to the specified <paramref name="timestamp" />.</returns>
     [PublicAPI]
     public static DateTime FromLinuxTimeStamp (double timestamp) => Epochs.LinuxEpoch + TimeSpan.FromMilliseconds (timestamp);
   }
