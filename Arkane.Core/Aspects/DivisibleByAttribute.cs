@@ -25,6 +25,10 @@ using Metalama.Framework.Eligibility;
 
 namespace ArkaneSystems.Arkane.Aspects;
 
+/// <summary>
+///   A Metalama contract aspect that validates that a numeric parameter, field, or property value is evenly
+///   divisible by a specified divisor.
+/// </summary>
 [PublicAPI]
 [CLSCompliant (false)]
 public class DivisibleByAttribute : ContractAspect

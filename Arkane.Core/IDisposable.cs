@@ -32,5 +32,8 @@ namespace ArkaneSystems.Arkane;
 [PublicAPI]
 public interface IDisposable<out T> : IDisposable
 {
+  /// <summary>
+  ///   Gets the underlying value exposed by this disposable instance.
+  /// </summary>
   T Value { get; }
 }

@@ -32,10 +32,17 @@ internal static class Module
 {
   // This should never be null in practice, but we need to suppress the warning about it being non-nullable without
   // an initializer, since it is.
+  /// <summary>
+  ///   Gets or sets the <see cref="IServiceProvider" /> built and used internally by Arkane.Core.
+  /// </summary>
   internal static IServiceProvider ServiceProvider { get; set; } = null!;
 
   #pragma warning disable CA2255
 
+  /// <summary>
+  ///   Performs module initialization for Arkane.Core. Called automatically by the runtime before any code in
+  ///   this assembly executes.
+  /// </summary>
   [UsedImplicitly]
   [ModuleInitializer]
   public static void InitializeModule ()
