@@ -86,8 +86,15 @@ public static partial class ExtensionMethods
 
     #region Encryption
 
-    // Paired with DecryptWithAes in ExtensionMethods-System-ByteArray.cs. The IV is prepended to the
-    // output of this method, so the decryption method can extract it for use in decryption.
+    /// <summary>
+    ///   Encrypts the current string using AES with the provided <paramref name="key" />, prepending the
+    ///   randomly-generated IV to the returned byte array.
+    /// </summary>
+    /// <param name="key">The AES encryption key. Must be 16, 24, or 32 bytes (128, 192, or 256 bits).</param>
+    /// <returns>
+    ///   A byte array containing the AES IV followed by the AES-encrypted UTF-8 bytes of the current string.
+    ///   Pass this value to <c>DecryptWithAes</c> along with the same key to recover the original string.
+    /// </returns>
     [PublicAPI]
     public byte[] EncryptWithAes (byte[] key)
     {
@@ -147,6 +154,15 @@ public static partial class ExtensionMethods
 
     #region Conversions
 
+    /// <summary>
+    ///   Attempts to parse the current string as a <see cref="DateTime" /> using a set of supported date formats,
+    ///   returning <paramref name="defaultValue" /> when the string is <see langword="null" />, empty, or cannot
+    ///   be parsed.
+    /// </summary>
+    /// <param name="defaultValue">The value to return when parsing fails. Defaults to <see cref="DateTime.MinValue" />.</param>
+    /// <returns>
+    ///   The parsed <see cref="DateTime" /> in UTC if successful; otherwise <paramref name="defaultValue" />.
+    /// </returns>
     [PublicAPI]
     public DateTime AsDateTime (DateTime defaultValue = default)
       => string.IsNullOrWhiteSpace (@this) ||
@@ -177,6 +193,11 @@ public static partial class ExtensionMethods
 
     #region Hashing
 
+    /// <summary>
+    ///   Computes the MD5 hash of the current string's UTF-8 byte representation.
+    /// </summary>
+    /// <returns>The 16-byte MD5 hash of the current string.</returns>
+    /// <remarks>Do not use this function to hash passwords; use a dedicated password hashing algorithm instead.</remarks>
     [PublicAPI]
     public byte[] GenerateMd5Hash ()
     {
@@ -213,6 +234,11 @@ public static partial class ExtensionMethods
       return hash.ComputeHash (saltedString);
     }
 
+    /// <summary>
+    ///   Computes the SHA-256 hash of the current string's UTF-8 byte representation.
+    /// </summary>
+    /// <returns>The 32-byte SHA-256 hash of the current string.</returns>
+    /// <remarks>Do not use this function to hash passwords; use a dedicated password hashing algorithm instead.</remarks>
     [PublicAPI]
     public byte[] GenerateSha256Hash ()
     {

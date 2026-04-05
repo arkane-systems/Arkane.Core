@@ -21,10 +21,21 @@ using Metalama.Framework.Aspects;
 
 namespace ArkaneSystems.Arkane.Aspects;
 
+/// <summary>
+///   A Metalama aspect that replaces the target method body with a no-op, returning the default value for the
+///   method's return type.
+/// </summary>
 [PublicAPI]
 [CLSCompliant (false)]
 public sealed class NoOpAttribute : OverrideMethodAspect
 {
+  /// <summary>
+  ///   Replaces the target method's body with a no-op implementation that returns the default value for the
+  ///   method's return type.
+  /// </summary>
+  /// <returns>
+  ///   The default value for the method's return type, or <see langword="null" /> for reference types.
+  /// </returns>
   public override dynamic? OverrideMethod ()
   {
     object? returnValue = meta.Target.Method.ReturnType.ToType ().GetDefault ();

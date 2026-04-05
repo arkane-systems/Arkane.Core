@@ -36,10 +36,16 @@ public static partial class ExtensionMethods
   {
     #region Decryption
 
-    // Paired with the encryption method in ExtensionMethods-System-String.cs, this method decrypts a byte array
-    // that was encrypted using AES. The byte array is expected to contain the IV followed by the ciphertext. The
-    // method reads the IV from the beginning of the byte array, then uses it along with the provided key to create
-    // a decryptor and read the plaintext from the crypto stream.
+    /// <summary>
+    ///   Decrypts the current AES-encrypted byte array using the provided <paramref name="key" />.
+    ///   The byte array is expected to begin with the AES IV followed by the ciphertext, as produced by
+    ///   <c>EncryptWithAes</c>.
+    /// </summary>
+    /// <param name="key">The AES decryption key. Must match the key used during encryption.</param>
+    /// <returns>The decrypted string, decoded from UTF-8.</returns>
+    /// <exception cref="ArgumentException">
+    ///   Thrown when the byte array is shorter than the expected AES IV length.
+    /// </exception>
     [PublicAPI]
     public string DecryptWithAes (byte[] key)
     {
