@@ -90,4 +90,10 @@ Please see project web site for more information.
     <Folder Include="Aspects\Weavers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="Metalama.Patterns.Contracts.NotNullAttribute">
+      <Alias>NotNullContractAttribute</Alias>
+    </Using>
+  </ItemGroup>
+
 </Project>

@@ -120,6 +120,28 @@ public static partial class ExtensionMethods
 
     #endregion
 
+    #region AsNullIf
+
+    /// <summary>
+    ///   Returns null if the current string empty; otherwise, returns the original string.
+    /// </summary>
+    /// <returns>A null reference if the string is empty; otherwise, the original string.</returns>
+    [PublicAPI]
+    public string? AsNullIfEmpty () => string.IsNullOrEmpty (@this) ? null : @this;
+
+    /// <summary>
+    ///   Returns null if the current string is empty, or consists only of white-space characters; otherwise,
+    ///   returns the original string.
+    /// </summary>
+    /// <returns>
+    ///   A null reference if the string is empty, or contains only white-space characters; otherwise, the original
+    ///   string.
+    /// </returns>
+    [PublicAPI]
+    public string? AsNullIfWhitespace () => string.IsNullOrWhiteSpace (@this) ? null : @this;
+
+    #endregion
+
     #region Remove
 
     /// <summary>
@@ -128,7 +150,7 @@ public static partial class ExtensionMethods
     /// <param name="toRemove">The character(s) to remove.</param>
     /// <returns>The string with the specified characters removed.</returns>
     [PublicAPI]
-    public string Remove ([Metalama.Patterns.Contracts.NotNull] params char[] toRemove)
+    public string Remove ([NotNullContract] params char[] toRemove)
     {
       string result = @this;
       foreach (char c in toRemove)
@@ -143,7 +165,7 @@ public static partial class ExtensionMethods
     /// <param name="toRemove">The string(s) to remove.</param>
     /// <returns>The string with the specified substrings removed.</returns>
     [PublicAPI]
-    public string Remove ([Metalama.Patterns.Contracts.NotNull] params string[] toRemove)
+    public string Remove ([NotNullContract] params string[] toRemove)
     {
       string result = @this;
       foreach (string s in toRemove)
