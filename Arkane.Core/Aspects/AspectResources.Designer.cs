@@ -68,5 +68,14 @@ namespace ArkaneSystems.Arkane.Aspects {
                 return ResourceManager.GetString("DivisibleByAttribute_Validate_ValueMustBeDivisibleBy", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Method {0} executed in {1} ms..
+        /// </summary>
+        public static string StopwatchAttribute_OverrideMethod_MethodExecutedIn {
+            get {
+                return ResourceManager.GetString("StopwatchAttribute_OverrideMethod_MethodExecutedIn", resourceCulture);
+            }
+        }
     }
 }

@@ -120,4 +120,7 @@
   <data name="DivisibleByAttribute_Validate_ValueMustBeDivisibleBy" xml:space="preserve">
     <value>Value must be divisible by {0}, but was {1}.</value>
   </data>
+  <data name="StopwatchAttribute_OverrideMethod_MethodExecutedIn" xml:space="preserve">
+    <value>Method {0} executed in {1} ms.</value>
+  </data>
 </root>

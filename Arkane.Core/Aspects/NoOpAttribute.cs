@@ -7,7 +7,7 @@
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-05 10:34 AM
+// Created: 2026-04-05 6:30 PM
 
 #endregion
 
@@ -37,5 +37,9 @@ public sealed class NoOpAttribute : OverrideMethodAspect
   ///   <see langword="default" /> for the target method's return type: <see langword="null" /> for reference types,
   ///   <c>0</c> for numeric value types, <see langword="false" /> for <see cref="bool" />, and so on.
   /// </returns>
+
+  // TODO: fix this to return the correct default value for the method's return type, rather than that for dynamic?
+  // object? returnValue = meta.Target.Method.ReturnType.ToType ().GetDefault ();
+  // ReSharper disable once PreferConcreteValueOverDefault
   public override dynamic? OverrideMethod () => default;
 }

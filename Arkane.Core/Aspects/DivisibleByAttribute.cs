@@ -61,14 +61,21 @@ public class DivisibleByAttribute : ContractAspect
   {
     Type[] supportedTypes =
     [
-      typeof (int), typeof (uint), typeof (long), typeof (ulong), typeof (short), typeof (ushort), typeof (byte), typeof (sbyte),
+      typeof (int),
+      typeof (uint),
+      typeof (long),
+      typeof (ulong),
+      typeof (short),
+      typeof (ushort),
+      typeof (byte),
+      typeof (sbyte),
       typeof (decimal),
     ];
 
     base.BuildEligibility (builder);
 
     builder.Type ()
-           .MustSatisfyAny (supportedTypes.Select (supportedType =>
+           .MustSatisfyAny (supportedTypes.Select (static supportedType =>
                                                      new Action<IEligibilityBuilder<IType>> (t => t.MustEqual (supportedType)))
                                           .ToArray ());
   }
@@ -82,14 +89,21 @@ public class DivisibleByAttribute : ContractAspect
   {
     Type[] supportedTypes =
     [
-      typeof (int), typeof (uint), typeof (long), typeof (ulong), typeof (short), typeof (ushort), typeof (byte), typeof (sbyte),
+      typeof (int),
+      typeof (uint),
+      typeof (long),
+      typeof (ulong),
+      typeof (short),
+      typeof (ushort),
+      typeof (byte),
+      typeof (sbyte),
       typeof (decimal),
     ];
 
     base.BuildEligibility (builder);
 
     builder.Type ()
-           .MustSatisfyAny (supportedTypes.Select (supportedType =>
+           .MustSatisfyAny (supportedTypes.Select (static supportedType =>
                                                      new Action<IEligibilityBuilder<IType>> (t => t.MustEqual (supportedType)))
                                           .ToArray ());
   }
@@ -103,10 +117,15 @@ public class DivisibleByAttribute : ContractAspect
   public override void Validate (dynamic? value)
   {
     if (value % this.Divisor != 0)
+
+      // TODO: When available, use FillWith.
+      // ReSharper disable ArgumentsStyleNamedExpression
       throw new ArgumentException (message: string.Format (AspectResources.DivisibleByAttribute_Validate_ValueMustBeDivisibleBy,
                                                            this.Divisor,
                                                            value),
                                    paramName: nameof (value));
+
+    // ReSharper restore ArgumentsStyleNamedExpression
   }
 
   #endregion
