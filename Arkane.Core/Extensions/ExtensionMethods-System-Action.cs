@@ -13,6 +13,10 @@
 
 #region using
 
+using System.Diagnostics;
+
+using ArkaneSystems.Arkane.Properties;
+
 using JetBrains.Annotations;
 
 #endregion
@@ -39,6 +43,26 @@ public static partial class ExtensionMethods
     /// <returns>The produced Memento.</returns>
     [PublicAPI]
     public IDisposable AsMemento () => new Memento (@this);
+
+    /// <summary>
+    ///   Provides a delegate that runs the specified action and fails fast if the action throws an exception.
+    /// </summary>
+    /// <returns>The wrapper delegate.</returns>
+    [PublicAPI]
+    public Action WithFailFast ()
+      => () =>
+         {
+           try { @this (); }
+           catch (Exception ex)
+           {
+             if (Debugger.IsAttached)
+               Debugger.Break ();
+             else
+               Environment.FailFast (message: Resources
+                                      .Extension_Action_WithFailFast_UnhandledExceptionOccurredDuringExecutionOfAction,
+                                     exception: ex);
+           }
+         };
   }
 
   #endregion

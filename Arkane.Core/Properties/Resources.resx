@@ -148,4 +148,7 @@
   <data name="Extension_ByteArray_DecryptWithAes_EncryptedPayloadShorterThanAesIv" xml:space="preserve">
     <value>The encrypted payload is shorter than the AES IV.</value>
   </data>
+  <data name="Extension_Action_WithFailFast_UnhandledExceptionOccurredDuringExecutionOfAction" xml:space="preserve">
+    <value>An unhandled exception occurred during execution of an Action.</value>
+  </data>
 </root>

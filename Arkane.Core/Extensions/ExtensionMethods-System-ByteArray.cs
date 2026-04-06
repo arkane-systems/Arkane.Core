@@ -38,6 +38,14 @@ public static partial class ExtensionMethods
   /// <param name="this">The byte array instance.</param>
   extension (byte[] @this)
   {
+    /// <summary>
+    ///   Creates a new <see cref="T:System.IO.MemoryStream" /> using this array as the initial buffer.
+    /// </summary>
+    /// <param name="writable">The setting of the CanWrite property, which determines whether the stream supports writing.</param>
+    /// <returns>A MemoryStream based upon this byte array.</returns>
+    [PublicAPI]
+    public MemoryStream AsMemoryStream (bool writable = true) => new (buffer: @this, writable: writable);
+
     #region Decryption
 
     /// <summary>

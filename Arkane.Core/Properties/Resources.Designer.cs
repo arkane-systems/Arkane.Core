@@ -117,6 +117,15 @@ namespace ArkaneSystems.Arkane.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An unhandled exception occurred during execution of an Action..
+        /// </summary>
+        internal static string Extension_Action_WithFailFast_UnhandledExceptionOccurredDuringExecutionOfAction {
+            get {
+                return ResourceManager.GetString("Extension_Action_WithFailFast_UnhandledExceptionOccurredDuringExecutionOfAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The encrypted payload is shorter than the AES IV..
         /// </summary>
         internal static string Extension_ByteArray_DecryptWithAes_EncryptedPayloadShorterThanAesIv {

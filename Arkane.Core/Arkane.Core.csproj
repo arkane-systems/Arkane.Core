@@ -86,6 +86,7 @@ Please see project web site for more information.
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Aspects\Contracts\" />
     <Folder Include="Aspects\Weavers\" />
   </ItemGroup>
 
