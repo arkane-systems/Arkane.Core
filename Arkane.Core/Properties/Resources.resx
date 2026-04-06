@@ -142,4 +142,7 @@
   <data name="Extension_INumber_Clamp_MinMustBeLessThanMax" xml:space="preserve">
     <value>min must be less than max</value>
   </data>
+  <data name="Extension_IBinaryInteger_Exp_PowerMustBeNonNegative" xml:space="preserve">
+    <value>Power must be non-negative.</value>
+  </data>
 </root>

@@ -117,6 +117,15 @@ namespace ArkaneSystems.Arkane.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Power must be non-negative..
+        /// </summary>
+        internal static string Extension_IBinaryInteger_Exp_PowerMustBeNonNegative {
+            get {
+                return ResourceManager.GetString("Extension_IBinaryInteger_Exp_PowerMustBeNonNegative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to min must be less than max.
         /// </summary>
         internal static string Extension_INumber_Clamp_MinMustBeLessThanMax {
