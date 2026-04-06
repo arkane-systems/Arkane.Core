@@ -139,4 +139,7 @@
   <data name="DisposerByReflection_GetPublicParameterlessInstanceMethod_ObjectDoesNotHaveAPublicParameterInstanceMethod" xml:space="preserve">
     <value>Object does not have a public parameterless instance method {0}.</value>
   </data>
+  <data name="Extension_INumber_Clamp_MinMustBeLessThanMax" xml:space="preserve">
+    <value>min must be less than max</value>
+  </data>
 </root>

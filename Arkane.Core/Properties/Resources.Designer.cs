@@ -117,6 +117,15 @@ namespace ArkaneSystems.Arkane.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to min must be less than max.
+        /// </summary>
+        internal static string Extension_INumber_Clamp_MinMustBeLessThanMax {
+            get {
+                return ResourceManager.GetString("Extension_INumber_Clamp_MinMustBeLessThanMax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This functionality must be implemented by a subclass of this base class..
         /// </summary>
         internal static string SubclassResponsibilityException_SubclassResponsibilityException_DefaultMessage {
