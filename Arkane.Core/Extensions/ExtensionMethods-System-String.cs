@@ -7,7 +7,7 @@
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-02 1:00 PM
+// Created: 2026-04-05 5:53 PM
 
 #endregion
 
@@ -28,12 +28,14 @@ namespace ArkaneSystems.Arkane;
 /// <summary>
 ///   Extension methods host class.
 /// </summary>
-
-// This part of the extension methods class is reserved for extension methods on System.String.
 public static partial class ExtensionMethods
 {
   #region Nested type: $extension
 
+  /// <summary>
+  ///   Extension methods for System.String.
+  /// </summary>
+  /// <param name="this">The string instance.</param>
   extension (string @this)
   {
     /// <summary>
@@ -340,7 +342,10 @@ public static partial class ExtensionMethods
   // The date formats supported by AsDateTime. These are tried in order until one matches the input string.
   private static readonly string[] DateFormats =
   [
-    "ddd MMM dd HH:mm:ss %zzzz yyyy", "yyyy-MM-dd\\THH:mm:ss.000Z", "yyyy-MM-dd\\THH:mm:ss\\Z", "yyyy-MM-dd HH:mm:ss",
+    "ddd MMM dd HH:mm:ss %zzzz yyyy",
+    "yyyy-MM-dd\\THH:mm:ss.000Z",
+    "yyyy-MM-dd\\THH:mm:ss\\Z",
+    "yyyy-MM-dd HH:mm:ss",
     "yyyy-MM-dd HH:mm",
   ];
 

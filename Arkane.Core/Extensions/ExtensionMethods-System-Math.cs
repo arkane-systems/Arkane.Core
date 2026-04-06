@@ -5,7 +5,7 @@
 // Alistair J. R. Young
 // Arkane Systems
 // 
-// Copyright Arkane Systems 2012-2018.  All rights reserved.
+// Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
 // Created: 2026-04-02 6:37 PM
 
@@ -23,12 +23,13 @@ namespace ArkaneSystems.Arkane;
 /// <summary>
 ///   Extension methods host class.
 /// </summary>
-
-// This part of the extension methods class is reserved for extension methods on System.Math.
 public static partial class ExtensionMethods
 {
   #region Nested type: $extension
 
+  /// <summary>
+  ///   Static extension methods for System.Math.
+  /// </summary>
   extension (Math)
   {
     #region Constants

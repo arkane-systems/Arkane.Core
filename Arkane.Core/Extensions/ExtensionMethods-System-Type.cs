@@ -23,12 +23,14 @@ namespace ArkaneSystems.Arkane;
 /// <summary>
 ///   Extension methods host class.
 /// </summary>
-
-// This part of the extension methods class is reserved for extension methods on System.Type.
 public static partial class ExtensionMethods
 {
   #region Nested type: $extension
 
+  /// <summary>
+  ///   Extension methods for System.Type.
+  /// </summary>
+  /// <param name="this">The Type instance.</param>
   extension (Type @this)
   {
     /// <summary>

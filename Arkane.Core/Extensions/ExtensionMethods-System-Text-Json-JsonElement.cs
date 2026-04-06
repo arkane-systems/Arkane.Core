@@ -7,7 +7,7 @@
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-04 4:10 PM
+// Created: 2026-04-05 5:53 PM
 
 #endregion
 
@@ -25,12 +25,14 @@ namespace ArkaneSystems.Arkane;
 /// <summary>
 ///   Extension methods host class.
 /// </summary>
-
-// This part of the extension methods class is reserved for extension methods on System.Text.Json.JsonElement.
 public static partial class ExtensionMethods
 {
   #region Nested type: $extension
 
+  /// <summary>
+  ///   Extension methods for System.Text.Json.JsonElement.
+  /// </summary>
+  /// <param name="this">The JsonElement instance.</param>
   extension (JsonElement @this)
   {
     #region Conversions
@@ -71,9 +73,9 @@ public static partial class ExtensionMethods
     [PublicAPI]
     public string? GetStringProperty (string propertyName, string? defaultValue = null)
     {
-      if (@this.ValueKind == JsonValueKind.Object &&
+      if ((@this.ValueKind == JsonValueKind.Object)                                         &&
           @this.TryGetProperty (propertyName: propertyName, value: out JsonElement element) &&
-          element.ValueKind == JsonValueKind.String)
+          (element.ValueKind == JsonValueKind.String))
         return element.GetString () ?? defaultValue;
 
       return defaultValue;

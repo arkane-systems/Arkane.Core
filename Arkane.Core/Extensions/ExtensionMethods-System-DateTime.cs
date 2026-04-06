@@ -7,7 +7,7 @@
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-03 3:34 PM
+// Created: 2026-04-05 5:53 PM
 
 #endregion
 
@@ -23,12 +23,14 @@ namespace ArkaneSystems.Arkane;
 /// <summary>
 ///   Extension methods host class.
 /// </summary>
-
-// This part of the extension methods class is reserved for extension methods on System.DateTime.
 public static partial class ExtensionMethods
 {
   #region Nested type: $extension
 
+  /// <summary>
+  ///   Extension methods for System.DateTime.
+  /// </summary>
+  /// <param name="this">The DateTime instance.</param>
   extension (DateTime @this)
   {
     /// <summary>
@@ -48,6 +50,9 @@ public static partial class ExtensionMethods
     }
   }
 
+  /// <summary>
+  ///   Static extension methods for System.DateTime.
+  /// </summary>
   extension (DateTime)
   {
     /// <summary>

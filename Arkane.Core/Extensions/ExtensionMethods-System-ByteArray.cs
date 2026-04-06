@@ -1,13 +1,13 @@
 ﻿#region header
 
-// Arkane.Core - ExtensionMethods-System-Byte-Array.cs
+// Arkane.Core - ExtensionMethods-System-ByteArray.cs
 // 
 // Alistair J. R. Young
 // Arkane Systems
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-04 3:39 PM
+// Created: 2026-04-05 5:53 PM
 
 #endregion
 
@@ -15,6 +15,8 @@
 
 using System.Security.Cryptography;
 using System.Text;
+
+using ArkaneSystems.Arkane.Properties;
 
 using JetBrains.Annotations;
 
@@ -26,12 +28,14 @@ namespace ArkaneSystems.Arkane;
 /// <summary>
 ///   Extension methods host class.
 /// </summary>
-
-// This part of the extension methods class is reserved for extension methods on System.Byte[].
 public static partial class ExtensionMethods
 {
   #region Nested type: $extension
 
+  /// <summary>
+  ///   Extension methods for byte arrays.
+  /// </summary>
+  /// <param name="this">The byte array instance.</param>
   extension (byte[] @this)
   {
     #region Decryption
@@ -56,10 +60,10 @@ public static partial class ExtensionMethods
       using var aes = Aes.Create ();
 
       int ivLength = aes.IV.Length;
+
       if (@this.Length < ivLength)
-      {
-        throw new ArgumentException ("The encrypted payload is shorter than the AES IV.", nameof (@this));
-      }
+        throw new ArgumentException (message: Resources.Extension_ByteArray_DecryptWithAes_EncryptedPayloadShorterThanAesIv,
+                                     paramName: nameof (@this));
 
       var iv = new byte[ivLength];
       memStream.ReadExactly (buffer: iv, offset: 0, count: iv.Length);

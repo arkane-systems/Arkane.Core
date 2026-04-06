@@ -1,6 +1,6 @@
 ﻿#region header
 
-// Arkane.Core - ExtensionMethods-System-INumber.cs
+// Arkane.Core - ExtensionMethods-System-Numerics-INumber.cs
 // 
 // Alistair J. R. Young
 // Arkane Systems
@@ -27,12 +27,15 @@ namespace ArkaneSystems.Arkane;
 /// <summary>
 ///   Extension methods host class.
 /// </summary>
-
-// This part of the extension methods class is reserved for extension methods on System.Numerics.INumber<T>.
 public static partial class ExtensionMethods
 {
   #region Nested type: $extension
 
+  /// <summary>
+  ///   Extension methods for System.Numerics.INumber.
+  /// </summary>
+  /// <typeparam name="T">The specific numeric type.</typeparam>
+  /// <param name="this">The numeric instance.</param>
   extension<T> (T @this) where T : INumber<T>
   {
     [PublicAPI]

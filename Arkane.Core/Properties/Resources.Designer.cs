@@ -117,6 +117,15 @@ namespace ArkaneSystems.Arkane.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The encrypted payload is shorter than the AES IV..
+        /// </summary>
+        internal static string Extension_ByteArray_DecryptWithAes_EncryptedPayloadShorterThanAesIv {
+            get {
+                return ResourceManager.GetString("Extension_ByteArray_DecryptWithAes_EncryptedPayloadShorterThanAesIv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Power must be non-negative..
         /// </summary>
         internal static string Extension_IBinaryInteger_Exp_PowerMustBeNonNegative {

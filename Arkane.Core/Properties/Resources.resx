@@ -145,4 +145,7 @@
   <data name="Extension_IBinaryInteger_Exp_PowerMustBeNonNegative" xml:space="preserve">
     <value>Power must be non-negative.</value>
   </data>
+  <data name="Extension_ByteArray_DecryptWithAes_EncryptedPayloadShorterThanAesIv" xml:space="preserve">
+    <value>The encrypted payload is shorter than the AES IV.</value>
+  </data>
 </root>
