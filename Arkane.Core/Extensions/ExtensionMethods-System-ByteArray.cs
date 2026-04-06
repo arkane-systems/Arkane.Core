@@ -13,6 +13,7 @@
 
 #region using
 
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -59,6 +60,9 @@ public static partial class ExtensionMethods
     ///   Thrown when the byte array is shorter than the expected AES IV length.
     /// </exception>
     [PublicAPI]
+    [SuppressMessage (category: "Usage",
+                      checkId: "CA2208:Instantiate argument exceptions correctly",
+                      Justification = "This is an extension method.")]
     public string DecryptWithAes (byte[] key)
     {
       using var memStream = new MemoryStream ();

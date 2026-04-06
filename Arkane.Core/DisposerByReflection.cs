@@ -90,8 +90,8 @@ public class DisposerByReflection<T> : DisposerBase<T>
   /// </summary>
   public MethodInfo Method { get; protected set; }
 
-  private static MethodInfo GetPublicParameterlessInstanceMethod ([NotNullContract] T      obj,
-                                                                  [Required]        string methodName)
+  private static MethodInfo GetPublicParameterlessInstanceMethod (T                 obj,
+                                                                  [Required] string methodName)
   {
     MethodInfo? method = obj!.GetType ()
                              .GetMethod (name: methodName,

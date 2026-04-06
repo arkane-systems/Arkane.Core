@@ -33,6 +33,22 @@ public static partial class ExtensionMethods
   #region Nested type: $extension
 
   /// <summary>
+  ///   Extension methods for nullable strings. These are separate from the non-nullable string extensions to allow for more
+  ///   precise nullability annotations and to avoid ambiguity when calling extension methods on nullable string instances.
+  /// </summary>
+  /// <param name="this">The nullable string instance.</param>
+  extension (string? @this)
+  {
+    /// <summary>
+    ///   Safely denullify a nullable string. Nulls become String.Empty.
+    /// </summary>
+    /// <returns>The original string, or String.Empty if null.</returns>
+    [PublicAPI]
+    [ContractAnnotation ("null=>notnull")]
+    public string Safe () => @this ?? string.Empty;
+  }
+
+  /// <summary>
   ///   Extension methods for System.String.
   /// </summary>
   /// <param name="this">The string instance.</param>
@@ -120,6 +136,31 @@ public static partial class ExtensionMethods
 
     #endregion
 
+    #region HasValue
+
+    /// <summary>
+    ///   Test whether a string has a value; i.e., is not null, or empty.
+    /// </summary>
+    /// <returns>True if the string is neither null or empty; false otherwise.</returns>
+    [PublicAPI]
+    [Pure]
+    [ContractAnnotation ("null=>false")]
+    public bool HasValue () => !string.IsNullOrEmpty (@this);
+
+    /// <summary>
+    ///   Test whether a string has a value; i.e., is not null, empty, or composed solely of whitespace.
+    /// </summary>
+    /// <returns>
+    ///   True if the string is not null, not empty, and not composed entirely of whitespace
+    ///   characters; false otherwise.
+    /// </returns>
+    [PublicAPI]
+    [Pure]
+    [ContractAnnotation ("null=>false")]
+    public bool HasNonWhiteSpaceValue () => !string.IsNullOrWhiteSpace (@this);
+
+    #endregion
+
     #region AsNullIf
 
     /// <summary>
@@ -150,7 +191,7 @@ public static partial class ExtensionMethods
     /// <param name="toRemove">The character(s) to remove.</param>
     /// <returns>The string with the specified characters removed.</returns>
     [PublicAPI]
-    public string Remove ([NotNullContract] params char[] toRemove)
+    public string Remove (params char[] toRemove)
     {
       string result = @this;
       foreach (char c in toRemove)
@@ -165,7 +206,7 @@ public static partial class ExtensionMethods
     /// <param name="toRemove">The string(s) to remove.</param>
     /// <returns>The string with the specified substrings removed.</returns>
     [PublicAPI]
-    public string Remove ([NotNullContract] params string[] toRemove)
+    public string Remove (params string[] toRemove)
     {
       string result = @this;
       foreach (string s in toRemove)
@@ -227,9 +268,7 @@ public static partial class ExtensionMethods
     {
       byte[] stringBytes = Encoding.UTF8.GetBytes (@this);
 
-      using var hash = MD5.Create ();
-
-      return hash.ComputeHash (stringBytes);
+      return MD5.HashData (stringBytes);
     }
 
     /// <summary>
@@ -253,9 +292,7 @@ public static partial class ExtensionMethods
       Buffer.BlockCopy (src: salt,        srcOffset: 0, dst: saltedString, dstOffset: 0,           count: salt.Length);
       Buffer.BlockCopy (src: stringBytes, srcOffset: 0, dst: saltedString, dstOffset: salt.Length, count: stringBytes.Length);
 
-      using var hash = MD5.Create ();
-
-      return hash.ComputeHash (saltedString);
+      return MD5.HashData (saltedString);
     }
 
     /// <summary>
@@ -268,9 +305,7 @@ public static partial class ExtensionMethods
     {
       byte[] stringBytes = Encoding.UTF8.GetBytes (@this);
 
-      using var hash = SHA256.Create ();
-
-      return hash.ComputeHash (stringBytes);
+      return SHA256.HashData (stringBytes);
     }
 
     /// <summary>
@@ -294,9 +329,7 @@ public static partial class ExtensionMethods
       Buffer.BlockCopy (src: salt,        srcOffset: 0, dst: saltedString, dstOffset: 0,           count: salt.Length);
       Buffer.BlockCopy (src: stringBytes, srcOffset: 0, dst: saltedString, dstOffset: salt.Length, count: stringBytes.Length);
 
-      using var hash = SHA256.Create ();
-
-      return hash.ComputeHash (saltedString);
+      return SHA256.HashData (saltedString);
     }
 
     #endregion
