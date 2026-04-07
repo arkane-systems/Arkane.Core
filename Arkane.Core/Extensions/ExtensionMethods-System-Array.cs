@@ -43,14 +43,14 @@ public static partial class ExtensionMethods
     public Type GetElementType ()
     {
       Type elementType = @this.GetType ().GetElementType () ??
-                         throw new InvalidOperationException (Resources
-                                                               .Extension_Array_GetElementType_Impossible_ArrayHadNoElementType);
+                         throw new CannotHappenException (Resources
+                                                           .Extension_Array_GetElementType_ArrayHadNoElementType);
 
       while (elementType.IsArray)
       {
         elementType = elementType.GetElementType () ??
                       throw new
-                        InvalidOperationException (Resources.Extension_Array_GetElementType_Impossible_ArrayHadNoElementType);
+                        CannotHappenException (Resources.Extension_Array_GetElementType_ArrayHadNoElementType);
       }
 
       return elementType;

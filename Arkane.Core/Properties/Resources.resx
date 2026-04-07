@@ -152,8 +152,8 @@
   <data name="Extension_Action_WithFailFast_UnhandledExceptionOccurredDuringExecutionOfAction" xml:space="preserve">
     <value>An unhandled exception occurred during execution of an Action.</value>
   </data>
-  <data name="Extension_Array_GetElementType_Impossible_ArrayHadNoElementType" xml:space="preserve">
-    <value>impossible: An Array had no element type.</value>
+  <data name="Extension_Array_GetElementType_ArrayHadNoElementType" xml:space="preserve">
+    <value>An Array had no element type.</value>
   </data>
   <data name="Extension_Boolean_AsLocalizedYesNoString_No" xml:space="preserve">
     <value>No</value>
@@ -163,5 +163,11 @@
   </data>
   <data name="Extension_Boolean_AsLocalizedYesNoString_Maybe" xml:space="preserve">
     <value>Maybe</value>
+  </data>
+  <data name="CannotHappenException_CannotHappenException_Impossible" xml:space="preserve">
+    <value>impossible: </value>
+  </data>
+  <data name="CannotHappenException_CannotHappenException_DefaultMessage" xml:space="preserve">
+    <value>Something happened which cannot happen.</value>
   </data>
 </root>

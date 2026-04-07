@@ -61,6 +61,24 @@ namespace ArkaneSystems.Arkane.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Something happened which cannot happen..
+        /// </summary>
+        internal static string CannotHappenException_CannotHappenException_DefaultMessage {
+            get {
+                return ResourceManager.GetString("CannotHappenException_CannotHappenException_DefaultMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to impossible: .
+        /// </summary>
+        internal static string CannotHappenException_CannotHappenException_Impossible {
+            get {
+                return ResourceManager.GetString("CannotHappenException_CannotHappenException_Impossible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arkane Systems.
         /// </summary>
         internal static string CompanyName {
@@ -126,11 +144,11 @@ namespace ArkaneSystems.Arkane.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to impossible: An Array had no element type..
+        ///   Looks up a localized string similar to An Array had no element type..
         /// </summary>
-        internal static string Extension_Array_GetElementType_Impossible_ArrayHadNoElementType {
+        internal static string Extension_Array_GetElementType_ArrayHadNoElementType {
             get {
-                return ResourceManager.GetString("Extension_Array_GetElementType_Impossible_ArrayHadNoElementType", resourceCulture);
+                return ResourceManager.GetString("Extension_Array_GetElementType_ArrayHadNoElementType", resourceCulture);
             }
         }
         
