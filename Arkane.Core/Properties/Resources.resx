@@ -126,6 +126,7 @@
   </data>
   <data name="Copyright" xml:space="preserve">
     <value>Copyright ⓒ 2016-2026 Arkane Systems / Alistair J. R. Young</value>
+    <comment>Generic copyright message.</comment>
   </data>
   <data name="DisposerByReflection_DisposerByReflection_CantBeMethodWithUnassignedGenericTypeParams" xml:space="preserve">
     <value>Can't be a method with unassigned generic type parameters.</value>
@@ -150,5 +151,17 @@
   </data>
   <data name="Extension_Action_WithFailFast_UnhandledExceptionOccurredDuringExecutionOfAction" xml:space="preserve">
     <value>An unhandled exception occurred during execution of an Action.</value>
+  </data>
+  <data name="Extension_Array_GetElementType_Impossible_ArrayHadNoElementType" xml:space="preserve">
+    <value>impossible: An Array had no element type.</value>
+  </data>
+  <data name="Extension_Boolean_AsLocalizedYesNoString_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Extension_Boolean_AsLocalizedYesNoString_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Extension_Boolean_AsLocalizedYesNoString_Maybe" xml:space="preserve">
+    <value>Maybe</value>
   </data>
 </root>

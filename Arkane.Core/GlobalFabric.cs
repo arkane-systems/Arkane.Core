@@ -28,6 +28,13 @@ internal class GlobalFabric : ProjectFabric
   #region Overrides of ProjectFabric
 
   /// <inheritdoc />
+  /// <remarks>
+  ///   <para>
+  ///     Configure the project to be more strict about nullability. This is important for catching potential issues early,
+  ///     especially during development. In release builds, we can be more lenient and only check the public-facing API, as
+  ///     internal code is less likely to be exposed to external consumers.
+  ///   </para>
+  /// </remarks>
   public override void AmendProject (IProjectAmender amender)
   {
 #if DEBUG

@@ -126,6 +126,42 @@ namespace ArkaneSystems.Arkane.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to impossible: An Array had no element type..
+        /// </summary>
+        internal static string Extension_Array_GetElementType_Impossible_ArrayHadNoElementType {
+            get {
+                return ResourceManager.GetString("Extension_Array_GetElementType_Impossible_ArrayHadNoElementType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maybe.
+        /// </summary>
+        internal static string Extension_Boolean_AsLocalizedYesNoString_Maybe {
+            get {
+                return ResourceManager.GetString("Extension_Boolean_AsLocalizedYesNoString_Maybe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string Extension_Boolean_AsLocalizedYesNoString_No {
+            get {
+                return ResourceManager.GetString("Extension_Boolean_AsLocalizedYesNoString_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Extension_Boolean_AsLocalizedYesNoString_Yes {
+            get {
+                return ResourceManager.GetString("Extension_Boolean_AsLocalizedYesNoString_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The encrypted payload is shorter than the AES IV..
         /// </summary>
         internal static string Extension_ByteArray_DecryptWithAes_EncryptedPayloadShorterThanAesIv {

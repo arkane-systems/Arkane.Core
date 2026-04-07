@@ -33,22 +33,6 @@ public static partial class ExtensionMethods
   #region Nested type: $extension
 
   /// <summary>
-  ///   Extension methods for nullable strings. These are separate from the non-nullable string extensions to allow for more
-  ///   precise nullability annotations and to avoid ambiguity when calling extension methods on nullable string instances.
-  /// </summary>
-  /// <param name="this">The nullable string instance.</param>
-  extension (string? @this)
-  {
-    /// <summary>
-    ///   Safely denullify a nullable string. Nulls become String.Empty.
-    /// </summary>
-    /// <returns>The original string, or String.Empty if null.</returns>
-    [PublicAPI]
-    [ContractAnnotation ("null=>notnull")]
-    public string Safe () => @this ?? string.Empty;
-  }
-
-  /// <summary>
   ///   Extension methods for System.String.
   /// </summary>
   /// <param name="this">The string instance.</param>
@@ -133,53 +117,6 @@ public static partial class ExtensionMethods
 
       return memStream.ToArray ();
     }
-
-    #endregion
-
-    #region HasValue
-
-    /// <summary>
-    ///   Test whether a string has a value; i.e., is not null, or empty.
-    /// </summary>
-    /// <returns>True if the string is neither null or empty; false otherwise.</returns>
-    [PublicAPI]
-    [Pure]
-    [ContractAnnotation ("null=>false")]
-    public bool HasValue () => !string.IsNullOrEmpty (@this);
-
-    /// <summary>
-    ///   Test whether a string has a value; i.e., is not null, empty, or composed solely of whitespace.
-    /// </summary>
-    /// <returns>
-    ///   True if the string is not null, not empty, and not composed entirely of whitespace
-    ///   characters; false otherwise.
-    /// </returns>
-    [PublicAPI]
-    [Pure]
-    [ContractAnnotation ("null=>false")]
-    public bool HasNonWhiteSpaceValue () => !string.IsNullOrWhiteSpace (@this);
-
-    #endregion
-
-    #region AsNullIf
-
-    /// <summary>
-    ///   Returns null if the current string empty; otherwise, returns the original string.
-    /// </summary>
-    /// <returns>A null reference if the string is empty; otherwise, the original string.</returns>
-    [PublicAPI]
-    public string? AsNullIfEmpty () => string.IsNullOrEmpty (@this) ? null : @this;
-
-    /// <summary>
-    ///   Returns null if the current string is empty, or consists only of white-space characters; otherwise,
-    ///   returns the original string.
-    /// </summary>
-    /// <returns>
-    ///   A null reference if the string is empty, or contains only white-space characters; otherwise, the original
-    ///   string.
-    /// </returns>
-    [PublicAPI]
-    public string? AsNullIfWhitespace () => string.IsNullOrWhiteSpace (@this) ? null : @this;
 
     #endregion
 
@@ -386,6 +323,69 @@ public static partial class ExtensionMethods
     [StringFormatMethod ("@this")]
     public string FillWith (IFormatProvider provider, params object?[] args)
       => string.Format (provider: provider, format: @this, args: args);
+
+    #endregion
+  }
+
+  /// <summary>
+  ///   Extension methods for nullable strings. These are separate from the non-nullable string extensions to allow for more
+  ///   precise nullability annotations and to avoid ambiguity when calling extension methods on nullable string instances.
+  /// </summary>
+  /// <param name="this">The nullable string instance.</param>
+  extension (string? @this)
+  {
+    /// <summary>
+    ///   Safely denullify a nullable string. Nulls become String.Empty.
+    /// </summary>
+    /// <returns>The original string, or String.Empty if null.</returns>
+    [PublicAPI]
+    [ContractAnnotation ("null=>notnull")]
+    public string Safe () => @this ?? string.Empty;
+
+    #region HasValue
+
+    /// <summary>
+    ///   Test whether a string has a value; i.e., is not null, or empty.
+    /// </summary>
+    /// <returns>True if the string is neither null or empty; false otherwise.</returns>
+    [PublicAPI]
+    [Pure]
+    [ContractAnnotation ("null=>false")]
+    public bool HasValue () => !string.IsNullOrEmpty (@this);
+
+    /// <summary>
+    ///   Test whether a string has a value; i.e., is not null, empty, or composed solely of whitespace.
+    /// </summary>
+    /// <returns>
+    ///   True if the string is not null, not empty, and not composed entirely of whitespace
+    ///   characters; false otherwise.
+    /// </returns>
+    [PublicAPI]
+    [Pure]
+    [ContractAnnotation ("null=>false")]
+    public bool HasNonWhiteSpaceValue () => !string.IsNullOrWhiteSpace (@this);
+
+    #endregion
+
+    #region AsNullIf
+
+    /// <summary>
+    ///   Returns null if the current string empty; otherwise, returns the original string.
+    /// </summary>
+    /// <returns>A null reference if the string is empty; otherwise, the original string.</returns>
+    [PublicAPI]
+    public string? AsNullIfEmpty () => string.IsNullOrEmpty (@this) ? null : @this;
+
+    /// <summary>
+    ///   Returns null if the current string is empty, or consists only of white-space characters; otherwise,
+    ///   returns the original string.
+    /// </summary>
+    /// <returns>
+    ///   A null reference if the string is empty, or contains only white-space characters; otherwise, the original
+    ///   string.
+    /// </returns>
+    [PublicAPI]
+    public string? AsNullIfWhitespace () => string.IsNullOrWhiteSpace (@this) ? null : @this;
 
     #endregion
   }
