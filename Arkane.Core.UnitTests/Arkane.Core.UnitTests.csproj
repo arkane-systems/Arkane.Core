@@ -7,7 +7,6 @@
     <LangVersion>14.0</LangVersion>
     <IsTestProject>true</IsTestProject>
     <IsPackable>false</IsPackable>
-    <LangVersion>latest</LangVersion>
     <DisableTransitiveProjectReferences>false</DisableTransitiveProjectReferences>
   </PropertyGroup>
 
