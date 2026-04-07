@@ -342,6 +342,24 @@ public static partial class ExtensionMethods
     [ContractAnnotation ("null=>notnull")]
     public string Safe () => @this ?? string.Empty;
 
+    /// <summary>
+    ///   Returns <see cref="F:System.String.Empty" /> if the string is null,
+    ///   otherwise, returns the original string.
+    /// </summary>
+    /// <returns>The original string, or String.Empty if null.</returns>
+    /// <remarks>
+    ///   <para>
+    ///     This is an alias for <see cref="Safe(string?)" /> that may read more fluently in some contexts, e.g.,
+    ///     <c>myNullableString.AsEmptyIfNull()</c>.
+    ///   </para>
+    ///   <para>
+    ///     It is also the previous name for this function in versions of this library that existed before C# 8.0 introduced
+    ///     nullable reference types, and is retained for backward compatibility and discoverability reasons.
+    ///   </para>
+    /// </remarks>
+    [PublicAPI]
+    public string AsEmptyIfNull () => @this.Safe ();
+
     #region HasValue
 
     /// <summary>

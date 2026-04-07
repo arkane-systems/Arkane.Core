@@ -67,10 +67,7 @@ public class BreakAfterAttribute : OverrideMethodAspect
   /// </returns>
   public override dynamic? OverrideMethod ()
   {
-    dynamic? returnValue = meta.Proceed ();
-
-    Debugger.Break ();
-
-    return returnValue;
+    try { return meta.Proceed (); }
+    finally { Debugger.Break (); }
   }
 }

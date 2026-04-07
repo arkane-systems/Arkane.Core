@@ -123,4 +123,7 @@
   <data name="StopwatchAttribute_OverrideMethod_MethodExecutedIn" xml:space="preserve">
     <value>Method {0} executed in {1} ms.</value>
   </data>
+  <data name="RetryAttribute_OverrideMethod_RetryingDueToException" xml:space="preserve">
+    <value>Retrying in {0} ms due to exception: {1}</value>
+  </data>
 </root>

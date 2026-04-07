@@ -7,13 +7,13 @@
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-05 10:00 PM
+// Created: 2026-04-05 6:30 PM
 
 #endregion
 
 #region using
 
-using ArkaneSystems.Arkane.Aspects;
+using ArkaneSystems.Arkane.Aspects.Diagnostics;
 
 using JetBrains.Annotations;
 
@@ -27,6 +27,8 @@ namespace Arkane.Core.UnitTests.Aspects;
 [TestClass]
 public class NoOpAttributeTests
 {
+  #region Nested type: Target
+
   #region Test target
 
   /// <summary>
@@ -64,6 +66,8 @@ public class NoOpAttributeTests
     [NoOp]
     public object? MethodReturningObject () => throw new InvalidOperationException ("Original body must not execute.");
   }
+
+  #endregion
 
   #endregion
 

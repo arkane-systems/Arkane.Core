@@ -28,6 +28,7 @@ Please see project web site for more information.
     <FileVersion>$(VersionPrefix)</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -88,6 +89,13 @@ Please see project web site for more information.
   <ItemGroup>
     <Folder Include="Aspects\Contracts\" />
     <Folder Include="Aspects\Weavers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

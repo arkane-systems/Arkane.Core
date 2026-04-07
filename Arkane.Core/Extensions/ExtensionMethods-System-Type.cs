@@ -117,6 +117,42 @@ public static partial class ExtensionMethods
       // Since a null ObjectValue was supplied, report whether its default value is null
       return defaultType == null;
     }
+
+    #region GetAttributes
+
+    /// <summary>
+    ///   Retrieves the first custom attribute of the specified type applied to the current member, optionally searching
+    ///   the inheritance chain.
+    /// </summary>
+    /// <remarks>
+    ///   If multiple attributes of the specified type are applied, only the first is returned. This
+    ///   method can be used to determine if a particular attribute is present and to access its data.
+    /// </remarks>
+    /// <typeparam name="T">The type of attribute to search for. Must derive from Attribute.</typeparam>
+    /// <param name="includeInherited">
+    ///   true to search the inheritance chain for the attribute; otherwise, false. The default is
+    ///   true.
+    /// </param>
+    /// <returns>An instance of the specified attribute type if found; otherwise, null.</returns>
+    [PublicAPI]
+    public T? GetAttribute<T> (bool includeInherited = true) where T : Attribute
+      => @this.GetAllAttributes<T> (includeInherited).FirstOrDefault ();
+
+    /// <summary>
+    ///   Retrieves the custom attributes of the specified type that are applied to this Type.
+    /// </summary>
+    /// <typeparam name="T">The type of the custom attributes to retrieve. Must derive from Attribute.</typeparam>
+    /// <param name="includeInherited">
+    ///   true to search this member's inheritance chain to find the attributes; otherwise, false.  The default is true.
+    /// </param>
+    /// <returns>
+    ///   An enumeration of the custom attributes of type T that are applied to this Type.
+    /// </returns>
+    [PublicAPI]
+    public IEnumerable<T> GetAllAttributes<T> (bool includeInherited = true) where T : Attribute
+      => @this.GetCustomAttributes (attributeType: typeof (T), inherit: includeInherited).Cast<T> ();
+
+    #endregion
   }
 
   #endregion

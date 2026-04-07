@@ -5,9 +5,9 @@
 // Alistair J. R. Young
 // Arkane Systems
 // 
-// Copyright Arkane Systems 2012-2018.  All rights reserved.
+// Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-02 6:56 PM
+// Created: 2026-04-04 6:49 PM
 
 #endregion
 
@@ -29,9 +29,18 @@ namespace ArkaneSystems.Arkane.Annotations;
 /// <param name="name">The name of the author.</param>
 /// <param name="emailAddress">The email address of the author.</param>
 /// <remarks>
-///   The e-mail address is considered the unique part of the author's identity; names both change and are more
-///   variable in representation. Equality comparisons are done on this basis, and with the assumption that e-mail
-///   addresses are non-case-sensitive.
+///   <para>
+///     The e-mail address is considered the unique part of the author's identity; names both change and are more
+///     variable in representation. Equality comparisons are done on this basis, and with the assumption that e-mail
+///     addresses are non-case-sensitive.
+///   </para>
+///   <para>
+///     The name of the author is not considered unique, and is not used for equality comparisons.
+///   </para>
+///   <para>
+///     It is suggested that this be applied to the assembly for the overall author, and then
+///     deviations from this be marked out by individual usages.
+///   </para>
 /// </remarks>
 [PublicAPI]
 [AttributeUsage (AttributeTargets.All, AllowMultiple = true, Inherited = false)]
@@ -74,6 +83,7 @@ public sealed class AuthorAttribute ([Required] string name, [Required] [Email] 
 
   /// <inheritdoc />
   public override int GetHashCode () => StringComparer.OrdinalIgnoreCase.GetHashCode (this.EmailAddress);
+
   /// <summary>Determines whether two <see cref="AuthorAttribute" /> instances are equal.</summary>
   /// <param name="left">The left-hand operand.</param>
   /// <param name="right">The right-hand operand.</param>

@@ -70,6 +70,15 @@ namespace ArkaneSystems.Arkane.Aspects {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Retrying in {0} ms due to exception: {1}.
+        /// </summary>
+        public static string RetryAttribute_OverrideMethod_RetryingDueToException {
+            get {
+                return ResourceManager.GetString("RetryAttribute_OverrideMethod_RetryingDueToException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Method {0} executed in {1} ms..
         /// </summary>
         public static string StopwatchAttribute_OverrideMethod_MethodExecutedIn {

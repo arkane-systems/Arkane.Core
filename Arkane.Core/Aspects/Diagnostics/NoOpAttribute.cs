@@ -7,7 +7,7 @@
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-05 6:30 PM
+// Created: 2026-04-07 9:23 AM
 
 #endregion
 
@@ -19,7 +19,7 @@ using Metalama.Framework.Aspects;
 
 #endregion
 
-namespace ArkaneSystems.Arkane.Aspects;
+namespace ArkaneSystems.Arkane.Aspects.Diagnostics;
 
 /// <summary>
 ///   A Metalama aspect that replaces the target method body with a no-op, returning the default value for the
