@@ -34,10 +34,11 @@ Please see project web site for more information.
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>embedded</DebugType>
     <IsTrimmable>False</IsTrimmable>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <IsPublishable>False</IsPublishable>
     <VersionSuffix>dev</VersionSuffix>
     <DefineConstants>$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
+    <WarningsNotAsErrors>LAMA5003</WarningsNotAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -46,10 +47,13 @@ Please see project web site for more information.
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <IsPublishable>False</IsPublishable>
     <DefineConstants>$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
+    <WarningsNotAsErrors>LAMA5003</WarningsNotAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LamaDebug|AnyCPU'">
     <DefineConstants>$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
+    <WarningsNotAsErrors>LAMA5003</WarningsNotAsErrors>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
