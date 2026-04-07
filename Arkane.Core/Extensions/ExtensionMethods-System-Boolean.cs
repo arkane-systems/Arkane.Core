@@ -89,7 +89,7 @@ public static partial class ExtensionMethods
     /// <summary>
     ///   Converts the nullable boolean into string format; {Yes, No, null} or {Yes, No, Maybe}.
     /// </summary>
-    /// <returns>The string value of the boolean, or null if it is null and <see paramref="maybe" /> is not true.</returns>
+    /// <returns>The string value of the boolean, or null if it is null and <paramref name="maybe" /> is not true.</returns>
     /// <remarks>
     ///   This version is not localized, and is guaranteed to always return "Yes", "No", or "Maybe". Use
     ///   <see
@@ -107,7 +107,7 @@ public static partial class ExtensionMethods
     /// <summary>
     ///   Converts the nullable boolean into string format; {Yes, No, null} or {Yes, No, Maybe}.
     /// </summary>
-    /// <returns>The string value of the boolean, or null if it is null and <see paramref="maybe" /> is not true.</returns>
+    /// <returns>The string value of the boolean, or null if it is null and <paramref name="maybe" /> is not true.</returns>
     /// <remarks>
     ///   This version is localized, and will return the localized equivalents of "Yes", "No", or "Maybe" based on the current
     ///   culture.

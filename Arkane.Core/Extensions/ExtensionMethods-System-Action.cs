@@ -37,10 +37,10 @@ public static partial class ExtensionMethods
   extension (Action @this)
   {
     /// <summary>
-    ///   Converts the Action into a <see cref="T:ArkaneSystems.Arkane.Memento" /> which will cause it to be executed
-    ///   when the Memento is disposed.
+    ///   Creates an <see cref="IDisposable" /> that will execute the specified <see cref="Action" /> when it is
+    ///   disposed.
     /// </summary>
-    /// <returns>The produced Memento.</returns>
+    /// <returns>An <see cref="IDisposable" /> implemented by a <see cref="T:ArkaneSystems.Arkane.Memento" />.</returns>
     [PublicAPI]
     public IDisposable AsMemento () => new Memento (@this);
 

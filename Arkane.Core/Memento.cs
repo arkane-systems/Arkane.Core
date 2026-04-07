@@ -38,7 +38,9 @@ public sealed class Memento : IDisposable
 
   void IDisposable.Dispose ()
   {
-    // TODO: Add assume contract that this.Disposed is false, and throw if not.
+    if (this.Disposed)
+      return;
+
     this.Disposed = true;
     this.Action ();
   }

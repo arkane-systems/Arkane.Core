@@ -38,9 +38,8 @@ public static partial class ExtensionMethods
     /// </summary>
     /// <returns>The default value for this Type.</returns>
     /// <remarks>
-    ///   If a null Type, a reference Type, or a System.Void Type is supplied, this method always returns null.  If a value
-    ///   type
-    ///   is supplied which is not publicly visible or which contains generic parameters, this method will fail with an
+    ///   If a reference Type or a System.Void Type is supplied, this method always returns null.  If a value type is
+    ///   supplied which is not publicly visible or which contains generic parameters, this method will fail with an
     ///   exception.
     /// </remarks>
     [PublicAPI]
