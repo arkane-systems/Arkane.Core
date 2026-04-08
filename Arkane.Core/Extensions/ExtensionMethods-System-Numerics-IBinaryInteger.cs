@@ -1,13 +1,13 @@
 ﻿#region header
 
-// Arkane.Core - ExtensionMethods-System-IBinaryInteger.cs
+// Arkane.Core - ExtensionMethods-System-Numerics-IBinaryInteger.cs
 // 
 // Alistair J. R. Young
 // Arkane Systems
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-05 11:04 PM
+// Created: 2026-04-07 10:31 AM
 
 #endregion
 

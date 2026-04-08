@@ -7,7 +7,7 @@
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-06 9:27 AM
+// Created: 2026-04-07 10:27 PM
 
 #endregion
 
@@ -37,10 +37,13 @@ public static partial class ExtensionMethods
   extension (Action @this)
   {
     /// <summary>
-    ///   Creates an <see cref="IDisposable" /> that will execute the specified <see cref="Action" /> when it is
+    ///   Creates an <see cref="IDisposable" /> <see cref="T:ArkaneSystems.Arkane.Memento" /> that will execute the specified
+    ///   <see cref="Action" /> when it is
     ///   disposed.
     /// </summary>
-    /// <returns>An <see cref="IDisposable" /> implemented by a <see cref="T:ArkaneSystems.Arkane.Memento" />.</returns>
+    /// <returns>
+    ///   An <see cref="IDisposable" /> implemented by a <see cref="T:ArkaneSystems.Arkane.Memento" />.
+    /// </returns>
     [PublicAPI]
     public IDisposable AsMemento () => new Memento (@this);
 

@@ -7,7 +7,7 @@
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-06 6:26 PM
+// Created: 2026-04-07 10:31 AM
 
 #endregion
 
@@ -29,6 +29,11 @@ public static partial class ExtensionMethods
 {
   #region Nested type: $extension
 
+  /// <summary>
+  ///   Extension methods for <see cref="Array" />.  Note that these are not extension methods for
+  ///   <see cref="System.Array" />, but rather for any array type, such as <c>int[]</c>, <c>string[,]</c>, etc.
+  /// </summary>
+  /// <param name="this">The array instance.</param>
   extension (Array @this)
   {
     /// <summary>
@@ -55,6 +60,20 @@ public static partial class ExtensionMethods
 
       return elementType;
     }
+  }
+
+  /// <summary>
+  ///   Extension methods for nullable array types.
+  /// </summary>
+  /// <param name="this"></param>
+  extension (Array? @this)
+  {
+    /// <summary>
+    ///   Determines whether the specified array is null or has a length of zero.
+    /// </summary>
+    /// <returns>true if the array is null or empty; otherwise, false.</returns>
+    [PublicAPI]
+    public bool IsNullOrEmpty () => (@this == null) || (@this.Length == 0);
   }
 
   #endregion
