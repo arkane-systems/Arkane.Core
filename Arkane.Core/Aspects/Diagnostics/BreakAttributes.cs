@@ -13,15 +13,13 @@
 
 #region using
 
-using System.Diagnostics;
-
 using JetBrains.Annotations;
 
 using Metalama.Framework.Aspects;
 
 #endregion
 
-namespace ArkaneSystems.Arkane.Aspects;
+namespace ArkaneSystems.Arkane.Aspects.Diagnostics;
 
 /// <summary>
 ///   Aspect attribute that triggers a debugger break immediately before executing the target method body.
@@ -42,7 +40,7 @@ public class BreakBeforeAttribute : OverrideMethodAspect
   /// </returns>
   public override dynamic? OverrideMethod ()
   {
-    Debugger.Break ();
+    meta.DebugBreak ();
 
     return meta.Proceed ();
   }
@@ -67,7 +65,10 @@ public class BreakAfterAttribute : OverrideMethodAspect
   /// </returns>
   public override dynamic? OverrideMethod ()
   {
-    try { return meta.Proceed (); }
-    finally { Debugger.Break (); }
+    dynamic? returnValue = meta.Proceed ();
+
+    meta.DebugBreak ();
+
+    return returnValue;
   }
 }

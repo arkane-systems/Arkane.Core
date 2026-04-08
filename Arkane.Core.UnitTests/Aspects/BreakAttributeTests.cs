@@ -15,7 +15,7 @@
 
 using System.Diagnostics;
 
-using ArkaneSystems.Arkane.Aspects;
+using ArkaneSystems.Arkane.Aspects.Diagnostics;
 
 using JetBrains.Annotations;
 
