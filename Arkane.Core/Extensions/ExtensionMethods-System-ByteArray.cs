@@ -1,20 +1,23 @@
 ﻿#region header
 
-// Arkane.Core - ExtensionMethods-System-Byte-Array.cs
+// Arkane.Core - ExtensionMethods-System-ByteArray.cs
 // 
 // Alistair J. R. Young
 // Arkane Systems
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-04 3:39 PM
+// Created: 2026-04-05 5:53 PM
 
 #endregion
 
 #region using
 
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 using System.Text;
+
+using ArkaneSystems.Arkane.Properties;
 
 using JetBrains.Annotations;
 
@@ -26,21 +29,40 @@ namespace ArkaneSystems.Arkane;
 /// <summary>
 ///   Extension methods host class.
 /// </summary>
-
-// This part of the extension methods class is reserved for extension methods on System.Byte[].
 public static partial class ExtensionMethods
 {
   #region Nested type: $extension
 
+  /// <summary>
+  ///   Extension methods for byte arrays.
+  /// </summary>
+  /// <param name="this">The byte array instance.</param>
   extension (byte[] @this)
   {
+    /// <summary>
+    ///   Creates a new <see cref="T:System.IO.MemoryStream" /> using this array as the initial buffer.
+    /// </summary>
+    /// <param name="writable">The setting of the CanWrite property, which determines whether the stream supports writing.</param>
+    /// <returns>A MemoryStream based upon this byte array.</returns>
+    [PublicAPI]
+    public MemoryStream AsMemoryStream (bool writable = true) => new (buffer: @this, writable: writable);
+
     #region Decryption
 
-    // Paired with the encryption method in ExtensionMethods-System-String.cs, this method decrypts a byte array
-    // that was encrypted using AES. The byte array is expected to contain the IV followed by the ciphertext. The
-    // method reads the IV from the beginning of the byte array, then uses it along with the provided key to create
-    // a decryptor and read the plaintext from the crypto stream.
+    /// <summary>
+    ///   Decrypts the current AES-encrypted byte array using the provided <paramref name="key" />.
+    ///   The byte array is expected to begin with the AES IV followed by the ciphertext, as produced by
+    ///   <c>EncryptWithAes</c>.
+    /// </summary>
+    /// <param name="key">The AES decryption key. Must match the key used during encryption.</param>
+    /// <returns>The decrypted string, decoded from UTF-8.</returns>
+    /// <exception cref="ArgumentException">
+    ///   Thrown when the byte array is shorter than the expected AES IV length.
+    /// </exception>
     [PublicAPI]
+    [SuppressMessage (category: "Usage",
+                      checkId: "CA2208:Instantiate argument exceptions correctly",
+                      Justification = "This is an extension method.")]
     public string DecryptWithAes (byte[] key)
     {
       using var memStream = new MemoryStream ();
@@ -50,10 +72,10 @@ public static partial class ExtensionMethods
       using var aes = Aes.Create ();
 
       int ivLength = aes.IV.Length;
+
       if (@this.Length < ivLength)
-      {
-        throw new ArgumentException ("The encrypted payload is shorter than the AES IV.", nameof (@this));
-      }
+        throw new ArgumentException (message: Resources.Extension_ByteArray_DecryptWithAes_EncryptedPayloadShorterThanAesIv,
+                                     paramName: nameof (@this));
 
       var iv = new byte[ivLength];
       memStream.ReadExactly (buffer: iv, offset: 0, count: iv.Length);

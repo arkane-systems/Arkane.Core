@@ -21,9 +21,16 @@ using JetBrains.Annotations;
 
 namespace ArkaneSystems.Arkane.Security.Cryptography;
 
+/// <summary>
+///   Provides helper methods for generating cryptographic hash-related values.
+/// </summary>
 [PublicAPI]
 public static class HashHelpers
 {
+  /// <summary>
+  ///   Generates a cryptographically random 512-bit (64-byte) salt value.
+  /// </summary>
+  /// <returns>A 64-byte array filled with cryptographically random data, suitable for use as a hash salt.</returns>
   [PublicAPI]
   public static byte[] GenerateSalt ()
   {

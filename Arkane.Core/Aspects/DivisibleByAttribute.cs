@@ -7,13 +7,11 @@
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-04 5:02 PM
+// Created: 2026-04-05 6:30 PM
 
 #endregion
 
 #region using
-
-using ArkaneSystems.Arkane.Properties;
 
 using JetBrains.Annotations;
 
@@ -25,6 +23,10 @@ using Metalama.Framework.Eligibility;
 
 namespace ArkaneSystems.Arkane.Aspects;
 
+/// <summary>
+///   A Metalama contract aspect that validates that a numeric parameter, field, or property value is evenly
+///   divisible by a specified divisor.
+/// </summary>
 [PublicAPI]
 [CLSCompliant (false)]
 public class DivisibleByAttribute : ContractAspect
@@ -59,14 +61,21 @@ public class DivisibleByAttribute : ContractAspect
   {
     Type[] supportedTypes =
     [
-      typeof (int), typeof (uint), typeof (long), typeof (ulong), typeof (short), typeof (ushort), typeof (byte), typeof (sbyte),
+      typeof (int),
+      typeof (uint),
+      typeof (long),
+      typeof (ulong),
+      typeof (short),
+      typeof (ushort),
+      typeof (byte),
+      typeof (sbyte),
       typeof (decimal),
     ];
 
     base.BuildEligibility (builder);
 
     builder.Type ()
-           .MustSatisfyAny (supportedTypes.Select (supportedType =>
+           .MustSatisfyAny (supportedTypes.Select (static supportedType =>
                                                      new Action<IEligibilityBuilder<IType>> (t => t.MustEqual (supportedType)))
                                           .ToArray ());
   }
@@ -80,14 +89,21 @@ public class DivisibleByAttribute : ContractAspect
   {
     Type[] supportedTypes =
     [
-      typeof (int), typeof (uint), typeof (long), typeof (ulong), typeof (short), typeof (ushort), typeof (byte), typeof (sbyte),
+      typeof (int),
+      typeof (uint),
+      typeof (long),
+      typeof (ulong),
+      typeof (short),
+      typeof (ushort),
+      typeof (byte),
+      typeof (sbyte),
       typeof (decimal),
     ];
 
     base.BuildEligibility (builder);
 
     builder.Type ()
-           .MustSatisfyAny (supportedTypes.Select (supportedType =>
+           .MustSatisfyAny (supportedTypes.Select (static supportedType =>
                                                      new Action<IEligibilityBuilder<IType>> (t => t.MustEqual (supportedType)))
                                           .ToArray ());
   }
@@ -101,10 +117,15 @@ public class DivisibleByAttribute : ContractAspect
   public override void Validate (dynamic? value)
   {
     if (value % this.Divisor != 0)
-      throw new ArgumentException (message: string.Format (Resources.DivisibleByAttribute_Validate_ValueMustBeDivisibleBy,
+
+      // TODO: When available, use FillWith.
+      // ReSharper disable ArgumentsStyleNamedExpression
+      throw new ArgumentException (message: string.Format (AspectResources.DivisibleByAttribute_Validate_ValueMustBeDivisibleBy,
                                                            this.Divisor,
                                                            value),
                                    paramName: nameof (value));
+
+    // ReSharper restore ArgumentsStyleNamedExpression
   }
 
   #endregion

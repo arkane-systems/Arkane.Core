@@ -5,7 +5,7 @@
 // Alistair J. R. Young
 // Arkane Systems
 // 
-// Copyright Arkane Systems 2012-2018.  All rights reserved.
+// Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
 // Created: 2026-04-02 11:09 PM
 
@@ -46,10 +46,10 @@ public sealed class SubclassResponsibilityException : NotImplementedException
   { }
 
   /// <inheritdoc />
-  public SubclassResponsibilityException (string? message) : base (message) { }
+  public SubclassResponsibilityException (string message) : base (message) { }
 
   /// <inheritdoc />
-  public SubclassResponsibilityException (string? message, Exception? innerException) : base (message: message,
-                                                                                              inner: innerException)
+  public SubclassResponsibilityException (string message, Exception innerException) : base (message: message,
+                                                                                            inner: innerException)
   { }
 }

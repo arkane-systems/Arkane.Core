@@ -61,6 +61,24 @@ namespace ArkaneSystems.Arkane.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Something happened which cannot happen..
+        /// </summary>
+        internal static string CannotHappenException_CannotHappenException_DefaultMessage {
+            get {
+                return ResourceManager.GetString("CannotHappenException_CannotHappenException_DefaultMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to impossible: .
+        /// </summary>
+        internal static string CannotHappenException_CannotHappenException_Impossible {
+            get {
+                return ResourceManager.GetString("CannotHappenException_CannotHappenException_Impossible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arkane Systems.
         /// </summary>
         internal static string CompanyName {
@@ -107,7 +125,7 @@ namespace ArkaneSystems.Arkane.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Object does not have a public parameter instance method {0}..
+        ///   Looks up a localized string similar to Object does not have a public parameterless instance method {0}..
         /// </summary>
         internal static string DisposerByReflection_GetPublicParameterlessInstanceMethod_ObjectDoesNotHaveAPublicParameterInstanceMethod {
             get {
@@ -117,11 +135,74 @@ namespace ArkaneSystems.Arkane.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value must be divisible by {0}, but was {1}..
+        ///   Looks up a localized string similar to An unhandled exception occurred during execution of an Action..
         /// </summary>
-        internal static string DivisibleByAttribute_Validate_ValueMustBeDivisibleBy {
+        internal static string Extension_Action_WithFailFast_UnhandledExceptionOccurredDuringExecutionOfAction {
             get {
-                return ResourceManager.GetString("DivisibleByAttribute_Validate_ValueMustBeDivisibleBy", resourceCulture);
+                return ResourceManager.GetString("Extension_Action_WithFailFast_UnhandledExceptionOccurredDuringExecutionOfAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An Array had no element type..
+        /// </summary>
+        internal static string Extension_Array_GetElementType_ArrayHadNoElementType {
+            get {
+                return ResourceManager.GetString("Extension_Array_GetElementType_ArrayHadNoElementType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maybe.
+        /// </summary>
+        internal static string Extension_Boolean_AsLocalizedYesNoString_Maybe {
+            get {
+                return ResourceManager.GetString("Extension_Boolean_AsLocalizedYesNoString_Maybe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string Extension_Boolean_AsLocalizedYesNoString_No {
+            get {
+                return ResourceManager.GetString("Extension_Boolean_AsLocalizedYesNoString_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Extension_Boolean_AsLocalizedYesNoString_Yes {
+            get {
+                return ResourceManager.GetString("Extension_Boolean_AsLocalizedYesNoString_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The encrypted payload is shorter than the AES IV..
+        /// </summary>
+        internal static string Extension_ByteArray_DecryptWithAes_EncryptedPayloadShorterThanAesIv {
+            get {
+                return ResourceManager.GetString("Extension_ByteArray_DecryptWithAes_EncryptedPayloadShorterThanAesIv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Power must be non-negative..
+        /// </summary>
+        internal static string Extension_IBinaryInteger_Exp_PowerMustBeNonNegative {
+            get {
+                return ResourceManager.GetString("Extension_IBinaryInteger_Exp_PowerMustBeNonNegative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to min must be less than max.
+        /// </summary>
+        internal static string Extension_INumber_Clamp_MinMustBeLessThanMax {
+            get {
+                return ResourceManager.GetString("Extension_INumber_Clamp_MinMustBeLessThanMax", resourceCulture);
             }
         }
         

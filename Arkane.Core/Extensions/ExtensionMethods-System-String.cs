@@ -7,7 +7,7 @@
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-02 1:00 PM
+// Created: 2026-04-05 5:53 PM
 
 #endregion
 
@@ -28,14 +28,27 @@ namespace ArkaneSystems.Arkane;
 /// <summary>
 ///   Extension methods host class.
 /// </summary>
-
-// This part of the extension methods class is reserved for extension methods on System.String.
 public static partial class ExtensionMethods
 {
   #region Nested type: $extension
 
+  /// <summary>
+  ///   Extension methods for System.String.
+  /// </summary>
+  /// <param name="this">The string instance.</param>
   extension (string @this)
   {
+    /// <summary>
+    ///   Perform a disemvowelment on a string, removing all lowercase and uppercase vowels ('a', 'e', 'i', 'o', 'u', 'A', 'E',
+    ///   'I', 'O', 'U') from the original string.
+    /// </summary>
+    /// <returns>
+    ///   A new string with all lowercase and uppercase vowels ('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U') removed
+    ///   from the original string.
+    /// </returns>
+    [PublicAPI]
+    public string Disemvowel () => @this.Remove ('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
+
     /// <summary>
     ///   Returns a new string containing only the alphanumeric characters (<c>[A-Za-z0-9]</c>) from the original string.
     /// </summary>
@@ -43,7 +56,7 @@ public static partial class ExtensionMethods
     [PublicAPI]
     public string RemoveNonAlphanumeric ()
     {
-      MatchCollection matchCollection = ExtensionMethods.AlphanumericRegex ().Matches (input: @this);
+      MatchCollection matchCollection = AlphanumericRegex ().Matches (input: @this);
       string          result          = string.Concat (matchCollection.Select (static m => m.Value));
 
       return result;
@@ -73,25 +86,17 @@ public static partial class ExtensionMethods
                : @this;
     }
 
-    #region Conversions
-
-    [PublicAPI]
-    public DateTime AsDateTime (DateTime defaultValue = default)
-      => string.IsNullOrWhiteSpace (@this) ||
-         !DateTime.TryParseExact (s: @this,
-                                  formats: ExtensionMethods.DateFormats,
-                                  provider: CultureInfo.InvariantCulture,
-                                  style: DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal,
-                                  result: out DateTime result)
-           ? defaultValue
-           : result;
-
-    #endregion
-
     #region Encryption
 
-    // Paired with DecryptWithAes in ExtensionMethods-System-ByteArray.cs. The IV is prepended to the
-    // output of this method, so the decryption method can extract it for use in decryption.
+    /// <summary>
+    ///   Encrypts the current string using AES with the provided <paramref name="key" />, prepending the
+    ///   randomly-generated IV to the returned byte array.
+    /// </summary>
+    /// <param name="key">The AES encryption key. Must be 16, 24, or 32 bytes (128, 192, or 256 bits).</param>
+    /// <returns>
+    ///   A byte array containing the AES IV followed by the AES-encrypted UTF-8 bytes of the current string.
+    ///   Pass this value to <c>DecryptWithAes</c> along with the same key to recover the original string.
+    /// </returns>
     [PublicAPI]
     public byte[] EncryptWithAes (byte[] key)
     {
@@ -115,16 +120,92 @@ public static partial class ExtensionMethods
 
     #endregion
 
+    #region Remove
+
+    /// <summary>
+    ///   Remove any instances of the given character(s) from the string.
+    /// </summary>
+    /// <param name="toRemove">The character(s) to remove.</param>
+    /// <returns>The string with the specified characters removed.</returns>
+    [PublicAPI]
+    public string Remove (params char[] toRemove)
+    {
+      string result = @this;
+      foreach (char c in toRemove)
+        result = result.Replace (oldValue: c.ToString (), newValue: string.Empty);
+
+      return result;
+    }
+
+    /// <summary>
+    ///   Remove any instance of the given string from the string.
+    /// </summary>
+    /// <param name="toRemove">The string(s) to remove.</param>
+    /// <returns>The string with the specified substrings removed.</returns>
+    [PublicAPI]
+    public string Remove (params string[] toRemove)
+    {
+      string result = @this;
+      foreach (string s in toRemove)
+        result = result.Replace (oldValue: s, newValue: string.Empty);
+
+      return result;
+    }
+
+    #endregion
+
+    #region Conversions
+
+    /// <summary>
+    ///   Attempts to parse the current string as a <see cref="DateTime" /> using a set of supported date formats,
+    ///   returning <paramref name="defaultValue" /> when the string is <see langword="null" />, empty, or cannot
+    ///   be parsed.
+    /// </summary>
+    /// <param name="defaultValue">The value to return when parsing fails. Defaults to <see cref="DateTime.MinValue" />.</param>
+    /// <returns>
+    ///   The parsed <see cref="DateTime" /> in UTC if successful; otherwise <paramref name="defaultValue" />.
+    /// </returns>
+    [PublicAPI]
+    public DateTime AsDateTime (DateTime defaultValue = default)
+      => string.IsNullOrWhiteSpace (@this) ||
+         !DateTime.TryParseExact (s: @this,
+                                  formats: DateFormats,
+                                  provider: CultureInfo.InvariantCulture,
+                                  style: DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal,
+                                  result: out DateTime result)
+           ? defaultValue
+           : result;
+
+    /// <summary>
+    ///   Parses a string into an enum. The parsing is case-insensitive by default, and returns
+    ///   <paramref name="defaultValue" /> if the string is null, empty, or cannot be parsed into the enum type.
+    /// </summary>
+    /// <typeparam name="T">The type of the enum.</typeparam>
+    /// <param name="ignoreCase">Indicates whether to ignore case when parsing.</param>
+    /// <param name="defaultValue">The default value to return if parsing fails.</param>
+    /// <returns>The parsed enum value, or the default value if parsing fails.</returns>
+    [PublicAPI]
+    public T AsEnum<T> (bool ignoreCase = true, T defaultValue = default) where T : struct, Enum
+      => string.IsNullOrWhiteSpace (@this) ||
+         !Enum.TryParse (value: @this, ignoreCase: ignoreCase, result: out T result)
+           ? defaultValue
+           : result;
+
+    #endregion
+
     #region Hashing
 
+    /// <summary>
+    ///   Computes the MD5 hash of the current string's UTF-8 byte representation.
+    /// </summary>
+    /// <returns>The 16-byte MD5 hash of the current string.</returns>
+    /// <remarks>Do not use this function to hash passwords; use a dedicated password hashing algorithm instead.</remarks>
     [PublicAPI]
     public byte[] GenerateMd5Hash ()
     {
       byte[] stringBytes = Encoding.UTF8.GetBytes (@this);
 
-      using var hash = MD5.Create ();
-
-      return hash.ComputeHash (stringBytes);
+      return MD5.HashData (stringBytes);
     }
 
     /// <summary>
@@ -148,19 +229,20 @@ public static partial class ExtensionMethods
       Buffer.BlockCopy (src: salt,        srcOffset: 0, dst: saltedString, dstOffset: 0,           count: salt.Length);
       Buffer.BlockCopy (src: stringBytes, srcOffset: 0, dst: saltedString, dstOffset: salt.Length, count: stringBytes.Length);
 
-      using var hash = MD5.Create ();
-
-      return hash.ComputeHash (saltedString);
+      return MD5.HashData (saltedString);
     }
 
+    /// <summary>
+    ///   Computes the SHA-256 hash of the current string's UTF-8 byte representation.
+    /// </summary>
+    /// <returns>The 32-byte SHA-256 hash of the current string.</returns>
+    /// <remarks>Do not use this function to hash passwords; use a dedicated password hashing algorithm instead.</remarks>
     [PublicAPI]
     public byte[] GenerateSha256Hash ()
     {
       byte[] stringBytes = Encoding.UTF8.GetBytes (@this);
 
-      using var hash = SHA256.Create ();
-
-      return hash.ComputeHash (stringBytes);
+      return SHA256.HashData (stringBytes);
     }
 
     /// <summary>
@@ -184,9 +266,7 @@ public static partial class ExtensionMethods
       Buffer.BlockCopy (src: salt,        srcOffset: 0, dst: saltedString, dstOffset: 0,           count: salt.Length);
       Buffer.BlockCopy (src: stringBytes, srcOffset: 0, dst: saltedString, dstOffset: salt.Length, count: stringBytes.Length);
 
-      using var hash = SHA256.Create ();
-
-      return hash.ComputeHash (saltedString);
+      return SHA256.HashData (saltedString);
     }
 
     #endregion
@@ -247,6 +327,87 @@ public static partial class ExtensionMethods
     #endregion
   }
 
+  /// <summary>
+  ///   Extension methods for nullable strings. These are separate from the non-nullable string extensions to allow for more
+  ///   precise nullability annotations and to avoid ambiguity when calling extension methods on nullable string instances.
+  /// </summary>
+  /// <param name="this">The nullable string instance.</param>
+  extension (string? @this)
+  {
+    /// <summary>
+    ///   Safely denullify a nullable string. Nulls become String.Empty.
+    /// </summary>
+    /// <returns>The original string, or String.Empty if null.</returns>
+    [PublicAPI]
+    [ContractAnnotation ("null=>notnull")]
+    public string Safe () => @this ?? string.Empty;
+
+    /// <summary>
+    ///   Returns <see cref="F:System.String.Empty" /> if the string is null,
+    ///   otherwise, returns the original string.
+    /// </summary>
+    /// <returns>The original string, or String.Empty if null.</returns>
+    /// <remarks>
+    ///   <para>
+    ///     This is an alias for <see cref="Safe(string?)" /> that may read more fluently in some contexts, e.g.,
+    ///     <c>myNullableString.AsEmptyIfNull()</c>.
+    ///   </para>
+    ///   <para>
+    ///     It is also the previous name for this function in versions of this library that existed before C# 8.0 introduced
+    ///     nullable reference types, and is retained for backward compatibility and discoverability reasons.
+    ///   </para>
+    /// </remarks>
+    [PublicAPI]
+    public string AsEmptyIfNull () => @this.Safe ();
+
+    #region HasValue
+
+    /// <summary>
+    ///   Test whether a string has a value; i.e., is not null, or empty.
+    /// </summary>
+    /// <returns>True if the string is neither null or empty; false otherwise.</returns>
+    [PublicAPI]
+    [Pure]
+    [ContractAnnotation ("null=>false")]
+    public bool HasValue () => !string.IsNullOrEmpty (@this);
+
+    /// <summary>
+    ///   Test whether a string has a value; i.e., is not null, empty, or composed solely of whitespace.
+    /// </summary>
+    /// <returns>
+    ///   True if the string is not null, not empty, and not composed entirely of whitespace
+    ///   characters; false otherwise.
+    /// </returns>
+    [PublicAPI]
+    [Pure]
+    [ContractAnnotation ("null=>false")]
+    public bool HasNonWhiteSpaceValue () => !string.IsNullOrWhiteSpace (@this);
+
+    #endregion
+
+    #region AsNullIf
+
+    /// <summary>
+    ///   Returns null if the current string empty; otherwise, returns the original string.
+    /// </summary>
+    /// <returns>A null reference if the string is empty; otherwise, the original string.</returns>
+    [PublicAPI]
+    public string? AsNullIfEmpty () => string.IsNullOrEmpty (@this) ? null : @this;
+
+    /// <summary>
+    ///   Returns null if the current string is empty, or consists only of white-space characters; otherwise,
+    ///   returns the original string.
+    /// </summary>
+    /// <returns>
+    ///   A null reference if the string is empty, or contains only white-space characters; otherwise, the original
+    ///   string.
+    /// </returns>
+    [PublicAPI]
+    public string? AsNullIfWhitespace () => string.IsNullOrWhiteSpace (@this) ? null : @this;
+
+    #endregion
+  }
+
   #endregion
 
   #region Supporting data for string extension methods
@@ -254,7 +415,10 @@ public static partial class ExtensionMethods
   // The date formats supported by AsDateTime. These are tried in order until one matches the input string.
   private static readonly string[] DateFormats =
   [
-    "ddd MMM dd HH:mm:ss %zzzz yyyy", "yyyy-MM-dd\\THH:mm:ss.000Z", "yyyy-MM-dd\\THH:mm:ss\\Z", "yyyy-MM-dd HH:mm:ss",
+    "ddd MMM dd HH:mm:ss %zzzz yyyy",
+    "yyyy-MM-dd\\THH:mm:ss.000Z",
+    "yyyy-MM-dd\\THH:mm:ss\\Z",
+    "yyyy-MM-dd HH:mm:ss",
     "yyyy-MM-dd HH:mm",
   ];
 

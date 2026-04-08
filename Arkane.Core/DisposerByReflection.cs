@@ -5,9 +5,9 @@
 // Alistair J. R. Young
 // Arkane Systems
 // 
-// Copyright Arkane Systems 2012-2018.  All rights reserved.
+// Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-02 11:37 PM
+// Created: 2026-04-07 10:31 AM
 
 #endregion
 
@@ -63,7 +63,7 @@ public class DisposerByReflection<T> : DisposerBase<T>
   ///   Thrown if method is static, has parameters, or contains unassigned generic type
   ///   parameters.
   /// </exception>
-  public DisposerByReflection ([Metalama.Patterns.Contracts.NotNull] T obj, MethodInfo method)
+  public DisposerByReflection ([NotNullContractAttribute] T obj, MethodInfo method)
     : base (obj)
   {
     if (method.IsStatic)
@@ -90,8 +90,8 @@ public class DisposerByReflection<T> : DisposerBase<T>
   /// </summary>
   public MethodInfo Method { get; protected set; }
 
-  private static MethodInfo GetPublicParameterlessInstanceMethod ([Metalama.Patterns.Contracts.NotNull] T      obj,
-                                                                  [Required]                            string methodName)
+  private static MethodInfo GetPublicParameterlessInstanceMethod (T                 obj,
+                                                                  [Required] string methodName)
   {
     MethodInfo? method = obj!.GetType ()
                              .GetMethod (name: methodName,
@@ -118,10 +118,7 @@ public class DisposerByReflection<T> : DisposerBase<T>
       return;
 
     try { this.Method.Invoke (obj: this.Object, parameters: null); }
-    catch (TargetInvocationException ex)
-    {
-      ExceptionDispatchInfo.Capture (ex.InnerException!).Throw ();
-    }
+    catch (TargetInvocationException ex) { ExceptionDispatchInfo.Capture (ex.InnerException!).Throw (); }
   }
 
   #endregion

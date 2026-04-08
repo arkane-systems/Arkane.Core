@@ -3,6 +3,7 @@
   <PropertyGroup>
     <VersionPrefix>0.1.0</VersionPrefix>
     <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>14.0</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>ArkaneSystems.Arkane</RootNamespace>
@@ -27,6 +28,7 @@ Please see project web site for more information.
     <FileVersion>$(VersionPrefix)</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -36,6 +38,7 @@ Please see project web site for more information.
     <IsPublishable>False</IsPublishable>
     <VersionSuffix>dev</VersionSuffix>
     <DefineConstants>$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
+    <WarningsNotAsErrors>LAMA5003</WarningsNotAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -44,23 +47,31 @@ Please see project web site for more information.
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <IsPublishable>False</IsPublishable>
     <DefineConstants>$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
+    <WarningsNotAsErrors>LAMA5003</WarningsNotAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LamaDebug|AnyCPU'">
     <DefineConstants>$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
+    <WarningsNotAsErrors>LAMA5003</WarningsNotAsErrors>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
-    <PackageReference Include="Metalama.Framework" Version="2026.0.20" />
-    <PackageReference Include="Metalama.Patterns.Contracts" Version="2026.0.20" />
-    <PackageReference Include="Metalama.Patterns.Immutability" Version="2026.0.20" />
-    <PackageReference Include="Metalama.Patterns.Memoization" Version="2026.0.20" />
-    <PackageReference Include="Metalama.Patterns.Observability" Version="2026.0.20" />
+    <PackageReference Include="Metalama.Framework" Version="2026.1.7-preview" />
+    <PackageReference Include="Metalama.Patterns.Contracts" Version="2026.1.7-preview" />
+    <PackageReference Include="Metalama.Patterns.Immutability" Version="2026.1.7-preview" />
+    <PackageReference Include="Metalama.Patterns.Memoization" Version="2026.1.7-preview" />
+    <PackageReference Include="Metalama.Patterns.Observability" Version="2026.1.7-preview" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Aspects\AspectResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AspectResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -69,6 +80,10 @@ Please see project web site for more information.
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Aspects\AspectResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AspectResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -76,7 +91,21 @@ Please see project web site for more information.
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Aspects\Contracts\" />
     <Folder Include="Aspects\Weavers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Metalama.Patterns.Contracts.NotNullAttribute">
+      <Alias>NotNullContractAttribute</Alias>
+    </Using>
   </ItemGroup>
 
 </Project>

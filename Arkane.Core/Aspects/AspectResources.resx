@@ -117,57 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CompanyName" xml:space="preserve">
-    <value>Arkane Systems</value>
-    <comment>Generic resource for company name.</comment>
+  <data name="DivisibleByAttribute_Validate_ValueMustBeDivisibleBy" xml:space="preserve">
+    <value>Value must be divisible by {0}, but was {1}.</value>
   </data>
-  <data name="SubclassResponsibilityException_SubclassResponsibilityException_DefaultMessage" xml:space="preserve">
-    <value>This functionality must be implemented by a subclass of this base class.</value>
+  <data name="StopwatchAttribute_OverrideMethod_MethodExecutedIn" xml:space="preserve">
+    <value>Method {0} executed in {1} ms.</value>
   </data>
-  <data name="Copyright" xml:space="preserve">
-    <value>Copyright ⓒ 2016-2026 Arkane Systems / Alistair J. R. Young</value>
-    <comment>Generic copyright message.</comment>
-  </data>
-  <data name="DisposerByReflection_DisposerByReflection_CantBeMethodWithUnassignedGenericTypeParams" xml:space="preserve">
-    <value>Can't be a method with unassigned generic type parameters.</value>
-  </data>
-  <data name="DisposerByReflection_DisposerByReflection_CantBeStaticMethod" xml:space="preserve">
-    <value>Can't be a static method.</value>
-  </data>
-  <data name="DisposerByReflection_DisposerByReflection_MustBeParameterlessMethod" xml:space="preserve">
-    <value>Must be a parameterless method.</value>
-  </data>
-  <data name="DisposerByReflection_GetPublicParameterlessInstanceMethod_ObjectDoesNotHaveAPublicParameterInstanceMethod" xml:space="preserve">
-    <value>Object does not have a public parameterless instance method {0}.</value>
-  </data>
-  <data name="Extension_INumber_Clamp_MinMustBeLessThanMax" xml:space="preserve">
-    <value>min must be less than max</value>
-  </data>
-  <data name="Extension_IBinaryInteger_Exp_PowerMustBeNonNegative" xml:space="preserve">
-    <value>Power must be non-negative.</value>
-  </data>
-  <data name="Extension_ByteArray_DecryptWithAes_EncryptedPayloadShorterThanAesIv" xml:space="preserve">
-    <value>The encrypted payload is shorter than the AES IV.</value>
-  </data>
-  <data name="Extension_Action_WithFailFast_UnhandledExceptionOccurredDuringExecutionOfAction" xml:space="preserve">
-    <value>An unhandled exception occurred during execution of an Action.</value>
-  </data>
-  <data name="Extension_Array_GetElementType_ArrayHadNoElementType" xml:space="preserve">
-    <value>An Array had no element type.</value>
-  </data>
-  <data name="Extension_Boolean_AsLocalizedYesNoString_No" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="Extension_Boolean_AsLocalizedYesNoString_Yes" xml:space="preserve">
-    <value>Yes</value>
-  </data>
-  <data name="Extension_Boolean_AsLocalizedYesNoString_Maybe" xml:space="preserve">
-    <value>Maybe</value>
-  </data>
-  <data name="CannotHappenException_CannotHappenException_Impossible" xml:space="preserve">
-    <value>impossible: </value>
-  </data>
-  <data name="CannotHappenException_CannotHappenException_DefaultMessage" xml:space="preserve">
-    <value>Something happened which cannot happen.</value>
+  <data name="RetryAttribute_OverrideMethod_RetryingDueToException" xml:space="preserve">
+    <value>Retrying in {0} ms due to exception: {1}</value>
   </data>
 </root>

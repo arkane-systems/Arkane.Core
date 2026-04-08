@@ -26,6 +26,8 @@
 	 - This specifically includes the use of `Metalama.Patterns.Contracts` aspects to enforce interface contracts, preconditions, postconditions, and invariants.
 	 - Metalama aspects can also be used to generate boilerplate code, such as property change notifications or equality members, or for any other appropriate use case.
 	 - Metalama aspects defined in `Arkane.Core/Aspects/` should be used consistently across the project to ensure maintainability and readability.
+	 - **Automatic null validation:** `GlobalFabric.cs` calls `amender.VerifyNotNullableDeclarations()`, which automatically adds `ArgumentNullException`-throwing contract aspects to all non-nullable parameter declarations in the project. As a result, **do not add manual null checks** for non-nullable parameters — the contract aspect handles this automatically.
+	 - **`AspectResources` must be `public`:** The `Arkane.Core/Aspects/AspectResources.resx` file is generated with `PublicResXFileCodeGenerator` to produce a public `AspectResources` class. This is required because Metalama weaves aspect code into client assemblies at compile time, and that woven code needs to access these resources from the client's context. Do **not** change this generator to `ResXFileCodeGenerator`.
 
 ## Conventions
 
@@ -37,7 +39,7 @@
 - **Extension method files:** Named `ExtensionMethods-System-<TargetType>.cs`
 
 ### Code Style
-- **Nullable reference types enabled** – always provide explicit null checks; prefer `ArgumentNullException.ThrowIfNull(x)`
+- **Nullable reference types enabled** – for non-nullable parameters, null validation is handled automatically by the `VerifyNotNullableDeclarations` contract aspect (see Metalama Usage above); do not add manual null checks for non-nullable parameters
 - **Implicit usings enabled** – no need for common `System.*` usings
 - **Fluent API marker:** `IFluent` interface signals fluent-style methods
 - **XML documentation:** All public and protected types and methods require `///` comments. Other types and methods should have them where necessary or useful for clarity.
