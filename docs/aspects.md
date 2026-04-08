@@ -10,7 +10,7 @@ All aspect types live under the **`ArkaneSystems.Arkane.Aspects`** namespace (or
 
 ## Debugger Break Aspects
 
-**Namespace:** `ArkaneSystems.Arkane.Aspects`
+**Namespace:** `ArkaneSystems.Arkane.Aspects.Diagnostics`
 
 Two aspects let you inject a `Debugger.Break()` call around a method at compile time — useful for investigating hard-to-reproduce issues without permanently altering the code.
 
