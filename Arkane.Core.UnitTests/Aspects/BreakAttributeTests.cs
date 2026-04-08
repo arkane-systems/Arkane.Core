@@ -7,7 +7,7 @@
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-05 10:00 PM
+// Created: 2026-04-07 10:31 AM
 
 #endregion
 
@@ -36,96 +36,6 @@ namespace Arkane.Core.UnitTests.Aspects;
 [TestClass]
 public class BreakAttributeTests
 {
-  #region Test targets
-
-  /// <summary>
-  ///   Helper class with <see cref="BreakBeforeAttribute" /> applied to various target methods.
-  /// </summary>
-  private sealed class BreakBeforeTarget
-  {
-    /// <summary>
-    ///   Tracks whether the method body was executed, to verify that <c>meta.Proceed()</c> is called
-    ///   after the debugger break.
-    /// </summary>
-    public bool BodyExecuted { get; private set; }
-
-    /// <summary>
-    ///   A method whose body returns 42. The aspect injects a debugger break before the body executes.
-    /// </summary>
-    [BreakBefore]
-    public int MethodReturningInt ()
-    {
-      BodyExecuted = true;
-
-      return 42;
-    }
-
-    /// <summary>
-    ///   A method whose body returns "hello". The aspect injects a debugger break before the body executes.
-    /// </summary>
-    [BreakBefore]
-    public string MethodReturningString ()
-    {
-      BodyExecuted = true;
-
-      return "hello";
-    }
-
-    /// <summary>
-    ///   A <see langword="void" /> method with a side effect. The aspect injects a debugger break before the body executes.
-    /// </summary>
-    [BreakBefore]
-    public void VoidMethod ()
-    {
-      BodyExecuted = true;
-    }
-  }
-
-  /// <summary>
-  ///   Helper class with <see cref="BreakAfterAttribute" /> applied to various target methods.
-  /// </summary>
-  private sealed class BreakAfterTarget
-  {
-    /// <summary>
-    ///   Tracks whether the method body was executed, to verify that <c>meta.Proceed()</c> is called
-    ///   before the debugger break.
-    /// </summary>
-    public bool BodyExecuted { get; private set; }
-
-    /// <summary>
-    ///   A method whose body returns 42. The aspect injects a debugger break after the body executes.
-    /// </summary>
-    [BreakAfter]
-    public int MethodReturningInt ()
-    {
-      BodyExecuted = true;
-
-      return 42;
-    }
-
-    /// <summary>
-    ///   A method whose body returns "hello". The aspect injects a debugger break after the body executes.
-    /// </summary>
-    [BreakAfter]
-    public string MethodReturningString ()
-    {
-      BodyExecuted = true;
-
-      return "hello";
-    }
-
-    /// <summary>
-    ///   A <see langword="void" /> method with a side effect. The aspect injects a debugger break after the body executes.
-    /// </summary>
-    [BreakAfter]
-    public void VoidMethod ()
-    {
-      BodyExecuted = true;
-    }
-  }
-
-  #endregion
-
   // ---- BreakBefore tests ----
 
   /// <summary>
@@ -252,4 +162,88 @@ public class BreakAttributeTests
     // Assert — the return value captured before Debugger.Break() is correctly passed back to the caller
     Assert.AreEqual (expected: 42, actual: result);
   }
+
+  #region Test targets
+
+  /// <summary>
+  ///   Helper class with <see cref="BreakBeforeAttribute" /> applied to various target methods.
+  /// </summary>
+  private sealed class BreakBeforeTarget
+  {
+    /// <summary>
+    ///   Tracks whether the method body was executed, to verify that <c>meta.Proceed()</c> is called
+    ///   after the debugger break.
+    /// </summary>
+    public bool BodyExecuted { get; private set; }
+
+    /// <summary>
+    ///   A method whose body returns 42. The aspect injects a debugger break before the body executes.
+    /// </summary>
+    [BreakBefore]
+    public int MethodReturningInt ()
+    {
+      this.BodyExecuted = true;
+
+      return 42;
+    }
+
+    /// <summary>
+    ///   A method whose body returns "hello". The aspect injects a debugger break before the body executes.
+    /// </summary>
+    [BreakBefore]
+    public string MethodReturningString ()
+    {
+      this.BodyExecuted = true;
+
+      return "hello";
+    }
+
+    /// <summary>
+    ///   A <see langword="void" /> method with a side effect. The aspect injects a debugger break before the body executes.
+    /// </summary>
+    [BreakBefore]
+    public void VoidMethod () { this.BodyExecuted = true; }
+  }
+
+  /// <summary>
+  ///   Helper class with <see cref="BreakAfterAttribute" /> applied to various target methods.
+  /// </summary>
+  private sealed class BreakAfterTarget
+  {
+    /// <summary>
+    ///   Tracks whether the method body was executed, to verify that <c>meta.Proceed()</c> is called
+    ///   before the debugger break.
+    /// </summary>
+    public bool BodyExecuted { get; private set; }
+
+    /// <summary>
+    ///   A method whose body returns 42. The aspect injects a debugger break after the body executes.
+    /// </summary>
+    [BreakAfter]
+    public int MethodReturningInt ()
+    {
+      this.BodyExecuted = true;
+
+      return 42;
+    }
+
+    /// <summary>
+    ///   A method whose body returns "hello". The aspect injects a debugger break after the body executes.
+    /// </summary>
+    [BreakAfter]
+    public string MethodReturningString ()
+    {
+      this.BodyExecuted = true;
+
+      return "hello";
+    }
+
+    /// <summary>
+    ///   A <see langword="void" /> method with a side effect. The aspect injects a debugger break after the body executes.
+    /// </summary>
+    [BreakAfter]
+    public void VoidMethod () { this.BodyExecuted = true; }
+  }
+
+  #endregion
 }

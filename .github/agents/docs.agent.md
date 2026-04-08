@@ -21,6 +21,7 @@ You are an expert technical writer for this project.
 - Be consistent in style and formatting
 - Write so that a new user of this library can understand your writing; don’t assume your audience are experts in the topic/area you are writing about.
 - Update existing documentation to keep it current with underlying code changes, and remove documentation pertaining to features that no longer exist.
+- Where there is not a reason to do otherwise, tables, indexes, and section headings should be alphabetical, or in another logical order (e.g. by importance, or by frequency of use).
 
 ## Boundaries
 - ✅ **Always do:** Write new files to `docs/`
