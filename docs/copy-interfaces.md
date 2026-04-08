@@ -87,6 +87,63 @@ After a deep copy, both instances have their **own** `Aliases` list and are full
 
 ---
 
+## Base Classes
+
+For common cases, Arkane.Core provides ready-to-use base classes so you do not have to implement the copy logic yourself.
+
+### ShallowCopiableObject
+
+**Namespace:** `ArkaneSystems.Arkane`
+
+```csharp
+public class ShallowCopiableObject : IShallowCopy<ShallowCopiableObject>
+```
+
+Provides a default shallow-copy implementation using `MemberwiseClone`. Inherit from this class when your object only needs a shallow copy and you have no extra copy logic to add.
+
+```csharp
+public class Tag : ShallowCopiableObject
+{
+    public string Name { get; set; } = string.Empty;
+    // ShallowCopy() is inherited and works out of the box.
+}
+```
+
+To override the copy behaviour, override `ShallowCopy()` and call `base.ShallowCopy()` if needed.
+
+---
+
+### DeepCopiableObject
+
+**Namespace:** `ArkaneSystems.Arkane`
+
+```csharp
+[Serializable]
+public class DeepCopiableObject : IDeepCopy<DeepCopiableObject>
+```
+
+Provides a recursive, reflection-based deep-copy implementation. Inherit from this class when your object graph contains nested mutable references that must all be independently copied.
+
+```csharp
+public class Document : DeepCopiableObject
+{
+    public string Title { get; set; } = string.Empty;
+    public List<Section> Sections { get; set; } = [];
+    // DeepCopy() is inherited; Sections and their contents are fully cloned.
+}
+```
+
+#### How it works
+
+- Known **immutable** types are shared rather than copied: primitives, `string`, `decimal`, `DateTime`, `DateTimeOffset`, `TimeSpan`, `Guid`, `Uri`, `Version`, `Type`, and `Delegate`.
+- **Arrays** are cloned, and their elements are recursively deep-copied (unless the element type is immutable).
+- **Object-graph cycles** are detected using a `Dictionary` keyed by reference identity, so circular references do not cause infinite recursion.
+- Field metadata for each type is cached in a `ConcurrentDictionary` so repeated copies of the same type are fast.
+
+To customise the copy behaviour, override `DeepCopy()` and call `base.DeepCopy()` as appropriate.
+
+---
+
 ## Rules
 
 > ⚠️ **Do not implement both `IDeepCopy<T>` and `IShallowCopy<T>` on the same class.** The two interfaces represent mutually exclusive copy semantics; implementing both on a single type is ambiguous and misleading to consumers.
