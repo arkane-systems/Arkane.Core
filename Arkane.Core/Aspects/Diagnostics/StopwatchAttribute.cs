@@ -7,7 +7,7 @@
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-07 9:23 AM
+// Created: 2026-04-07 10:31 AM
 
 #endregion
 
@@ -39,13 +39,9 @@ public class StopwatchAttribute : OverrideMethodAspect
     {
       stopWatch.Stop ();
 
-      // TODO: remove this argument naming suppression
-      // ReSharper disable ArgumentsStyleNamedExpression
-      Trace.WriteLine (string.Format (AspectResources.StopwatchAttribute_OverrideMethod_MethodExecutedIn,
-                                      meta.Target.Method.Name,
-                                      stopWatch.ElapsedMilliseconds));
-
-      // ReSharper restore ArgumentsStyleNamedExpression
+      Trace.WriteLine (string.Format (format: AspectResources.StopwatchAttribute_OverrideMethod_MethodExecutedIn,
+                                      arg0: meta.Target.Method.Name,
+                                      arg1: stopWatch.ElapsedMilliseconds));
     }
   }
 

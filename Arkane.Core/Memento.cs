@@ -7,7 +7,7 @@
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-06 9:13 AM
+// Created: 2026-04-07 10:27 PM
 
 #endregion
 
@@ -22,17 +22,13 @@ namespace ArkaneSystems.Arkane;
 /// <summary>
 ///   Remember an action to be performed on disposal; returned from a method needing later closure.
 /// </summary>
+/// <remarks>
+///   Remember an action to be performed on disposal; returned from a method needing later closure.
+/// </remarks>
 [PublicAPI]
-public sealed class Memento : IDisposable
+public sealed class Memento (Action action) : IDisposable
 {
-  /// <summary>
-  ///   Remember an action to be performed on disposal; returned from a method needing later closure.
-  /// </summary>
-
-  // TODO: Restore primary constructor once Metalama bug is fixed.
-  public Memento (Action action) => this.Action = action;
-
-  private Action Action { get; init; }
+  private Action Action { get; init; } = action;
 
   private bool Disposed { get; set; }
 

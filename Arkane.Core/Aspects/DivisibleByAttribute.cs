@@ -7,7 +7,7 @@
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-05 6:30 PM
+// Created: 2026-04-07 10:31 AM
 
 #endregion
 
@@ -75,9 +75,10 @@ public class DivisibleByAttribute : ContractAspect
     base.BuildEligibility (builder);
 
     builder.Type ()
-           .MustSatisfyAny (supportedTypes.Select (static supportedType =>
-                                                     new Action<IEligibilityBuilder<IType>> (t => t.MustEqual (supportedType)))
-                                          .ToArray ());
+           .MustSatisfyAny ([
+                              .. supportedTypes.Select (static supportedType =>
+                                                          new Action<IEligibilityBuilder<IType>> (t => t.MustEqual (supportedType)))
+                            ]);
   }
 
   /// <inheritdoc />
@@ -103,9 +104,10 @@ public class DivisibleByAttribute : ContractAspect
     base.BuildEligibility (builder);
 
     builder.Type ()
-           .MustSatisfyAny (supportedTypes.Select (static supportedType =>
-                                                     new Action<IEligibilityBuilder<IType>> (t => t.MustEqual (supportedType)))
-                                          .ToArray ());
+           .MustSatisfyAny ([
+                              .. supportedTypes.Select (static supportedType =>
+                                                          new Action<IEligibilityBuilder<IType>> (t => t.MustEqual (supportedType)))
+                            ]);
   }
 
   /// <inheritdoc />
@@ -118,14 +120,10 @@ public class DivisibleByAttribute : ContractAspect
   {
     if (value % this.Divisor != 0)
 
-      // TODO: When available, use FillWith.
-      // ReSharper disable ArgumentsStyleNamedExpression
       throw new ArgumentException (message: string.Format (AspectResources.DivisibleByAttribute_Validate_ValueMustBeDivisibleBy,
                                                            this.Divisor,
                                                            value),
                                    paramName: nameof (value));
-
-    // ReSharper restore ArgumentsStyleNamedExpression
   }
 
   #endregion

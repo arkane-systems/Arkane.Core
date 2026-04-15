@@ -7,7 +7,7 @@
 // 
 // Copyright Arkane Systems 2012-2026.  All rights reserved.
 // 
-// Created: 2026-04-05 10:00 PM
+// Created: 2026-04-07 10:31 AM
 
 #endregion
 
@@ -28,6 +28,8 @@ namespace Arkane.Core.UnitTests.Aspects;
 [TestClass]
 public class DivisibleByAttributeTests
 {
+  #region Nested type: Target
+
   #region Test targets
 
   /// <summary>
@@ -35,9 +37,23 @@ public class DivisibleByAttributeTests
   /// </summary>
   private sealed class Target
   {
-    private int    _intProperty;
-    private long   _longProperty;
-    private decimal _decimalProperty;
+    /// <summary>
+    ///   An integer property whose value must be divisible by 6.
+    /// </summary>
+    [DivisibleBy (6)]
+    public int IntPropertyDivisibleBy6 { get; set; }
+
+    /// <summary>
+    ///   A long property whose value must be divisible by 4.
+    /// </summary>
+    [DivisibleBy (4)]
+    public long LongPropertyDivisibleBy4 { get; set; }
+
+    /// <summary>
+    ///   A decimal property whose value must be divisible by 7.
+    /// </summary>
+    [DivisibleBy (7)]
+    public decimal DecimalPropertyDivisibleBy7 { get; set; }
 
     /// <summary>
     ///   A method whose <c>value</c> parameter must be divisible by 4.
@@ -58,37 +74,9 @@ public class DivisibleByAttributeTests
     ///   A method with multiple parameters, each with their own divisibility constraint.
     /// </summary>
     public void AcceptMultipleConstrained ([DivisibleBy (2)] int a, [DivisibleBy (3)] int b) { }
-
-    /// <summary>
-    ///   An integer property whose value must be divisible by 6.
-    /// </summary>
-    [DivisibleBy (6)]
-    public int IntPropertyDivisibleBy6
-    {
-      get => _intProperty;
-      set => _intProperty = value;
-    }
-
-    /// <summary>
-    ///   A long property whose value must be divisible by 4.
-    /// </summary>
-    [DivisibleBy (4)]
-    public long LongPropertyDivisibleBy4
-    {
-      get => _longProperty;
-      set => _longProperty = value;
-    }
-
-    /// <summary>
-    ///   A decimal property whose value must be divisible by 7.
-    /// </summary>
-    [DivisibleBy (7)]
-    public decimal DecimalPropertyDivisibleBy7
-    {
-      get => _decimalProperty;
-      set => _decimalProperty = value;
-    }
   }
+
+  #endregion
 
   #endregion
 

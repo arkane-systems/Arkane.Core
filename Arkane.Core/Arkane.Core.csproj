@@ -38,7 +38,7 @@ Please see project web site for more information.
     <IsPublishable>False</IsPublishable>
     <VersionSuffix>dev</VersionSuffix>
     <DefineConstants>$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
-    <WarningsNotAsErrors>LAMA5003</WarningsNotAsErrors>
+    <WarningsNotAsErrors></WarningsNotAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -47,22 +47,22 @@ Please see project web site for more information.
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <IsPublishable>False</IsPublishable>
     <DefineConstants>$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
-    <WarningsNotAsErrors>LAMA5003</WarningsNotAsErrors>
+    <WarningsNotAsErrors></WarningsNotAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LamaDebug|AnyCPU'">
     <DefineConstants>$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
-    <WarningsNotAsErrors>LAMA5003</WarningsNotAsErrors>
+    <WarningsNotAsErrors></WarningsNotAsErrors>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
-    <PackageReference Include="Metalama.Framework" Version="2026.1.7-preview" />
-    <PackageReference Include="Metalama.Patterns.Contracts" Version="2026.1.7-preview" />
-    <PackageReference Include="Metalama.Patterns.Immutability" Version="2026.1.7-preview" />
-    <PackageReference Include="Metalama.Patterns.Memoization" Version="2026.1.7-preview" />
-    <PackageReference Include="Metalama.Patterns.Observability" Version="2026.1.7-preview" />
+    <PackageReference Include="Metalama.Framework" Version="2026.1.8-preview" />
+    <PackageReference Include="Metalama.Patterns.Contracts" Version="2026.1.8-preview" />
+    <PackageReference Include="Metalama.Patterns.Immutability" Version="2026.1.8-preview" />
+    <PackageReference Include="Metalama.Patterns.Memoization" Version="2026.1.8-preview" />
+    <PackageReference Include="Metalama.Patterns.Observability" Version="2026.1.8-preview" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
   </ItemGroup>
 
