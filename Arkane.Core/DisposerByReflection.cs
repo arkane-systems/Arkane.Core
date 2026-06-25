@@ -59,8 +59,8 @@ public class DisposerByReflection<T> : DisposerBase<T>
   public DisposerByReflection (T obj, [Required] string methodName = "Dispose", string? asyncMethodName = "DisposeAsync")
     : this (obj: obj, method: GetPublicParameterlessInstanceMethod (obj: obj, methodName: methodName))
   {
-    this._targetIsIAsyncDisposable = obj is IAsyncDisposable;
-    if (!this._targetIsIAsyncDisposable && asyncMethodName is not null)
+    this.targetIsIAsyncDisposable = obj is IAsyncDisposable;
+    if (!this.targetIsIAsyncDisposable && asyncMethodName is not null)
       this.AsyncMethod = TryGetAsyncMethod (obj, asyncMethodName);
   }
 
@@ -77,7 +77,7 @@ public class DisposerByReflection<T> : DisposerBase<T>
   ///   Thrown if method is static, has parameters, or contains unassigned generic type
   ///   parameters.
   /// </exception>
-  public DisposerByReflection ([NotNullContractAttribute] T obj, MethodInfo method)
+  public DisposerByReflection ([NotNullContract] T obj, MethodInfo method)
     : base (obj)
   {
     if (method.IsStatic)
@@ -115,7 +115,7 @@ public class DisposerByReflection<T> : DisposerBase<T>
   /// <summary>
   ///   Internal flag indicating whether the wrapped object implements <see cref="IAsyncDisposable" />.
   /// </summary>
-  private readonly bool _targetIsIAsyncDisposable;
+  private readonly bool targetIsIAsyncDisposable;
 
   private static MethodInfo? TryGetAsyncMethod (T obj, string methodName)
   {
@@ -171,7 +171,7 @@ public class DisposerByReflection<T> : DisposerBase<T>
   /// <inheritdoc />
   protected override async ValueTask DisposeAsyncCore()
   {
-    if (this._targetIsIAsyncDisposable)
+    if (this.targetIsIAsyncDisposable)
     {
       await ((IAsyncDisposable)this.Object!).DisposeAsync().ConfigureAwait(false);
       return;

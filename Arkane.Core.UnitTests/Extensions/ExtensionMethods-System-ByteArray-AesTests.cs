@@ -14,7 +14,6 @@
 #region using
 
 using System.Security.Cryptography;
-using System.Text;
 
 using ArkaneSystems.Arkane;
 using ArkaneSystems.Arkane.Security.Cryptography;

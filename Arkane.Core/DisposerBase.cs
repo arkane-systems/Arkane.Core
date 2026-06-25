@@ -152,6 +152,7 @@ public abstract class DisposerBase<T> (T o) : IDisposable, IAsyncDisposable
   protected virtual ValueTask DisposeAsyncCore ()
   {
     this.DisposeImplementation (true);
+
     return ValueTask.CompletedTask;
   }
 
