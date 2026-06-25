@@ -20,7 +20,7 @@ using JetBrains.Annotations;
 namespace ArkaneSystems.Arkane.ComponentModel.Composition;
 
 /// <summary>
-///   A generic metadata interface for use with MEF.
+///   A generic metadata interface for use with Managed Extensibility Framework (MEF).
 /// </summary>
 [PublicAPI]
 public interface IGenericMetadata

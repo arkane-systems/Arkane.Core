@@ -64,7 +64,8 @@ Please see project web site for more information.
     <PackageReference Include="Metalama.Patterns.Immutability" Version="2026.1.18" />
     <PackageReference Include="Metalama.Patterns.Memoization" Version="2026.1.18" />
     <PackageReference Include="Metalama.Patterns.Observability" Version="2026.1.18" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.9" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="10.0.9" />
   </ItemGroup>
 
   <ItemGroup>
