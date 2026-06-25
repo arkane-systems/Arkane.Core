@@ -44,7 +44,13 @@ public abstract class DisposerBase<T> (T o) : IDisposable, IAsyncDisposable
   ///   operations on a disposed object. Access within the base disposal path is synchronized to ensure that the
   ///   transition to the disposed state is atomic when accessed from multiple threads.
   /// </remarks>
+  #pragma warning disable CS0420
+
+  // Intentional: the finalizer checks IsDisposed without synchronization to avoid lock acquisition in GC context,
+  // which could cause deadlock. The state transition is guarded by TransitionToDisposedOrThrow; the finalizer's
+  // unsynchronized check is a safe heuristic that prevents double-disposal attempts.
   protected bool IsDisposed;
+  #pragma warning restore CS0420
 
   /// <summary>
   ///   The object to be managed and disposed by this class.
