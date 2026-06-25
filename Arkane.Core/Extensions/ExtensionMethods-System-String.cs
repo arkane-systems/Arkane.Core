@@ -365,7 +365,7 @@ public static partial class ExtensionMethods
     /// <summary>
     ///   Test whether a string has a value; i.e., is not null, or empty.
     /// </summary>
-    /// <returns>True if the string is neither null or empty; false otherwise.</returns>
+    /// <returns>True if the string is neither null nor empty; false otherwise.</returns>
     [PublicAPI]
     [Pure]
     [ContractAnnotation ("null=>false")]

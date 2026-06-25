@@ -34,6 +34,16 @@ public static partial class ExtensionMethods
   /// <param name="this">The instance of the generic type.</param>
   extension<T> (T @this)
   {
+    /// <summary>
+    ///   Cast an object to a specified anonymous type by using an example of the type to cast to.
+    /// </summary>
+    /// <param name="anonymousType">The example type to cast to.</param>
+    /// <returns>The cast object.</returns>
+    [PublicAPI]
+   
+    // ReSharper disable once RedundantCast
+    public T CastByExample (T anonymousType) => (T)@this;
+
     /// <summary>Swap the values of two references.</summary>
     /// <param name="first">The first reference to swap.</param>
     /// <param name="second">The second reference to swap.</param>

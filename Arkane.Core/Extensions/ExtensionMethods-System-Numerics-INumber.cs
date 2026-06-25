@@ -19,6 +19,8 @@ using ArkaneSystems.Arkane.Properties;
 
 using JetBrains.Annotations;
 
+using Metalama.Patterns.Contracts;
+
 #endregion
 
 #pragma warning disable IDE0130
@@ -49,6 +51,9 @@ public static partial class ExtensionMethods
 
       return @this > max ? max : @this;
     }
+    
+    [PublicAPI]
+    public T Scale ([Range (min: 0, max: 100)] T percentage) => (@this * percentage) / T.CreateChecked (100);
   }
 
   #endregion
