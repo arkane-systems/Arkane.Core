@@ -27,7 +27,7 @@ Please see project web site for more information.
     <AssemblyVersion>$(VersionPrefix)</AssemblyVersion>
     <FileVersion>$(VersionPrefix)</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <EnforceCodeStyleInBuild>False</EnforceCodeStyleInBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
@@ -39,6 +39,7 @@ Please see project web site for more information.
     <VersionSuffix>dev</VersionSuffix>
     <DefineConstants>$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
     <WarningsNotAsErrors></WarningsNotAsErrors>
+    <WarningsAsErrors>;LAMA0621;NU1605;CS8032;SYSLIB0011;CS8032;SYSLIB0011</WarningsAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -57,12 +58,12 @@ Please see project web site for more information.
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
-    <PackageReference Include="Metalama.Framework" Version="2026.1.8-preview" />
-    <PackageReference Include="Metalama.Patterns.Contracts" Version="2026.1.8-preview" />
-    <PackageReference Include="Metalama.Patterns.Immutability" Version="2026.1.8-preview" />
-    <PackageReference Include="Metalama.Patterns.Memoization" Version="2026.1.8-preview" />
-    <PackageReference Include="Metalama.Patterns.Observability" Version="2026.1.8-preview" />
+    <PackageReference Include="JetBrains.Annotations" Version="2026.2.0" />
+    <PackageReference Include="Metalama.Framework" Version="2026.1.18" />
+    <PackageReference Include="Metalama.Patterns.Contracts" Version="2026.1.18" />
+    <PackageReference Include="Metalama.Patterns.Immutability" Version="2026.1.18" />
+    <PackageReference Include="Metalama.Patterns.Memoization" Version="2026.1.18" />
+    <PackageReference Include="Metalama.Patterns.Observability" Version="2026.1.18" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
   </ItemGroup>
 

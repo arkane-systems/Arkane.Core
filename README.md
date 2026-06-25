@@ -22,7 +22,7 @@ Install via NuGet:
 | Annotations | `AuthorAttribute`, `SourceLanguageAttribute`, `ProgrammingLanguages`, `PublicAPIAttribute`, `UsedImplicitlyAttribute`, `MeansImplicitUseAttribute` |
 | Aspects | `BreakBeforeAttribute`, `BreakAfterAttribute`, `DivisibleByAttribute`, `LogMethodCallsAttribute`, `NoOpAttribute`, `StopwatchAttribute`, `RetryAttribute` |
 | Extension methods | `string`, `bool`, `DateTime`, `Math`, `Action`, `Array`, `byte[]`, `Guid`, `IBinaryInteger<T>`, `INumber<T>`, `JsonElement`, `Type` |
-| Disposal patterns | `IDisposable<T>`, `DisposerBase<T>`, `DisposerByDelegation<T>`, `DisposerByReflection<T>` |
+| Disposal patterns | `IDisposable<T>`, `DisposerBase<T>` (`IDisposable` + `IAsyncDisposable`), `DisposerByDelegation<T>`, `DisposerByReflection<T>` |
 | Utilities | `CannotHappenException`, `SubclassResponsibilityException`, `Epochs`, `Empty`, `EventArgs<T>`, `Memento`, `IFluent` |
 | Security | `CryptoHelpers`, `HashHelpers` |
 | Component model | `IGenericMetadata` |
@@ -39,4 +39,3 @@ Install via NuGet:
 - [Utilities](docs/utilities.md)
 - [Security](docs/security.md)
 - [Component Model](docs/component-model.md)
-

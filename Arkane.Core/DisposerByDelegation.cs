@@ -26,6 +26,12 @@ namespace ArkaneSystems.Arkane;
 ///   for more flexibility and better performance than reflection-based disposal. The delegate can be any method that takes
 ///   an instance of the wrapped object and performs the necessary cleanup operations.
 /// </summary>
+/// <remarks>
+///   Supports both synchronous and asynchronous disposal. The synchronous <see cref="IDisposable.Dispose" /> method is
+///   always available. For asynchronous disposal via <see cref="IAsyncDisposable.DisposeAsync" />, provide an async
+///   delegate via the constructor overload; if no async delegate is provided, the synchronous disposal path is used as
+///   a fallback.
+/// </remarks>
 /// <typeparam name="T">The type of the object being wrapped.</typeparam>
 [PublicAPI]
 public class DisposerByDelegation<T> (T obj, Action<T> disposeAction) : DisposerBase<T> (obj)
@@ -40,6 +46,29 @@ public class DisposerByDelegation<T> (T obj, Action<T> disposeAction) : Disposer
   /// </remarks>
   protected readonly Action<T> DisposeAction = disposeAction ?? throw new ArgumentNullException (nameof (disposeAction));
 
+  /// <summary>
+  ///   Represents the asynchronous action to perform when disposing an instance of type T.
+  /// </summary>
+  /// <remarks>
+  ///   This delegate is optional. If provided, it is used for asynchronous disposal via <see cref="IAsyncDisposable.DisposeAsync" />.
+  ///   If not provided, the synchronous <see cref="DisposeAction" /> is used as a fallback.
+  /// </remarks>
+  protected readonly Func<T, ValueTask>? AsyncDisposeAction;
+
+  /// <summary>
+  ///   Initializes a new instance of the <see cref="DisposerByDelegation{T}" /> class with both synchronous and
+  ///   asynchronous disposal delegates.
+  /// </summary>
+  /// <param name="obj">The object to wrap.</param>
+  /// <param name="disposeAction">The synchronous disposal action.</param>
+  /// <param name="asyncDisposeAction">The asynchronous disposal action.</param>
+  [PublicAPI]
+  public DisposerByDelegation(T obj, Action<T> disposeAction, Func<T, ValueTask> asyncDisposeAction)
+    : this(obj, disposeAction)
+  {
+    this.AsyncDisposeAction = asyncDisposeAction ?? throw new ArgumentNullException(nameof(asyncDisposeAction));
+  }
+
   #region Overrides of DisposerBase<T>
 
   /// <inheritdoc />
@@ -49,6 +78,17 @@ public class DisposerByDelegation<T> (T obj, Action<T> disposeAction) : Disposer
       return;
 
     this.DisposeAction (this.Object);
+  }
+
+  /// <inheritdoc />
+  protected override ValueTask DisposeAsyncCore()
+  {
+    if (this.AsyncDisposeAction is { } fn)
+    {
+      return fn(this.Object);
+    }
+
+    return base.DisposeAsyncCore();
   }
 
   #endregion
